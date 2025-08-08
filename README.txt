@@ -40,10 +40,6 @@ How to Run:
 4. Open your browser and go to:
    http://localhost:5002/
 
-Default Admin Login:
---------------------
-Email: admin@pasma.com
-Password: admin123
 
 Note:
 -----
