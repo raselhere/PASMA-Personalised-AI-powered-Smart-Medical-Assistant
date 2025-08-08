@@ -1,0 +1,192 @@
+[
+    {
+        "id": 1,
+        "name": "Amoxicillin",
+        "category": "Antibiotics",
+        "description": "Broad-spectrum antibiotic used to treat various bacterial infections.",
+        "price": 12.99,
+        "company": "Generic Pharma",
+        "image": "/static/medicines/amoxicillin.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Lisinopril",
+        "category": "Cardiac Care",
+        "description": "ACE inhibitor used to treat high blood pressure and heart failure.",
+        "price": 15.5,
+        "company": "HealthPlus",
+        "image": "/static/medicines/lisinopril.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Metformin",
+        "category": "Diabetes Care",
+        "description": "First-line medication for the treatment of type 2 diabetes.",
+        "price": 8.75,
+        "company": "DiaCare",
+        "image": "/static/medicines/metformin.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Atorvastatin",
+        "category": "Cardiac Care",
+        "description": "Statin medication used to prevent cardiovascular disease and treat high cholesterol.",
+        "price": 22.99,
+        "company": "HeartWell",
+        "image": "/static/medicines/atorvastatin.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Albuterol",
+        "category": "Respiratory Care",
+        "description": "Bronchodilator that relaxes muscles in the airways and increases air flow to the lungs.",
+        "price": 18.25,
+        "company": "BreathEasy",
+        "image": "/static/medicines/albuterol.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Omeprazole",
+        "category": "Digestive Health",
+        "description": "Proton pump inhibitor used to treat certain stomach and esophagus problems.",
+        "price": 14.5,
+        "company": "GutHealth",
+        "image": "/static/medicines/omeprazole.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Levothyroxine",
+        "category": "Hormone Therapy",
+        "description": "Replacement for a hormone normally produced by your thyroid gland to regulate the body's energy and metabolism.",
+        "price": 10.99,
+        "company": "ThyroMed",
+        "image": "/static/medicines/levothyroxine.jpg"
+    },
+    {
+        "id": 8,
+        "name": "Ibuprofen",
+        "category": "Pain Relief",
+        "description": "Nonsteroidal anti-inflammatory drug used to reduce fever and treat pain or inflammation.",
+        "price": 5.99,
+        "company": "PainAway",
+        "image": "/static/medicines/ibuprofen.jpg"
+    },
+    {
+        "id": 9,
+        "name": "Acetaminophen",
+        "category": "Pain Relief",
+        "description": "Pain reliever and fever reducer used to treat many conditions such as headache, muscle aches, and fever.",
+        "price": 4.99,
+        "company": "ReliefPlus",
+        "image": "/static/medicines/acetaminophen.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Aspirin",
+        "category": "Pain Relief",
+        "description": "Pain reliever that also has anti-inflammatory and anti-platelet effects.",
+        "price": 3.99,
+        "company": "CardioHealth",
+        "image": "/static/medicines/aspirin.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Simvastatin",
+        "category": "Cardiac Care",
+        "description": "Statin medication used to lower cholesterol and reduce the risk of heart disease.",
+        "price": 19.75,
+        "company": "HeartCare",
+        "image": "/static/medicines/simvastatin.jpg"
+    },
+    {
+        "id": 12,
+        "name": "Metoprolol",
+        "category": "Cardiac Care",
+        "description": "Beta-blocker used to treat high blood pressure, chest pain, and heart failure.",
+        "price": 16.5,
+        "company": "CardioMed",
+        "image": "/static/medicines/metoprolol.jpg"
+    },
+    {
+        "id": 13,
+        "name": "Losartan",
+        "category": "Cardiac Care",
+        "description": "Angiotensin II receptor blocker used to treat high blood pressure and diabetic kidney disease.",
+        "price": 17.25,
+        "company": "RenalCare",
+        "image": "/static/medicines/losartan.jpg"
+    },
+    {
+        "id": 14,
+        "name": "Gabapentin",
+        "category": "Pain Relief",
+        "description": "Anticonvulsant medication used to treat seizures and nerve pain.",
+        "price": 13.99,
+        "company": "NeuroCare",
+        "image": "/static/medicines/gabapentin.jpg"
+    },
+    {
+        "id": 15,
+        "name": "Hydrochlorothiazide",
+        "category": "Cardiac Care",
+        "description": "Diuretic medication used to treat high blood pressure and swelling.",
+        "price": 9.5,
+        "company": "FluidBalance",
+        "image": "/static/medicines/hydrochlorothiazide.jpg"
+    },
+    {
+        "id": 16,
+        "name": "Azithromycin",
+        "category": "Antibiotics",
+        "description": "Antibiotic used to treat a variety of bacterial infections.",
+        "price": 14.99,
+        "company": "InfectionCare",
+        "image": "/static/medicines/azithromycin.jpg"
+    },
+    {
+        "id": 17,
+        "name": "Fluoxetine",
+        "category": "Mental Health",
+        "description": "Selective serotonin reuptake inhibitor used to treat depression, OCD, and panic disorder.",
+        "price": 11.75,
+        "company": "MindWell",
+        "image": "/static/medicines/fluoxetine.jpg"
+    },
+    {
+        "id": 18,
+        "name": "Sertraline",
+        "category": "Mental Health",
+        "description": "Selective serotonin reuptake inhibitor used to treat depression, anxiety, and PTSD.",
+        "price": 12.5,
+        "company": "MoodCare",
+        "image": "/static/medicines/sertraline.jpg"
+    },
+    {
+        "id": 19,
+        "name": "Montelukast",
+        "category": "Respiratory Care",
+        "description": "Leukotriene receptor antagonist used to prevent asthma attacks and seasonal allergies.",
+        "price": 20.99,
+        "company": "AllergyRelief",
+        "image": "/static/medicines/montelukast.jpg"
+    },
+    {
+        "id": 20,
+        "name": "Cetirizine",
+        "category": "Allergy Relief",
+        "description": "Antihistamine used to relieve allergy symptoms such as watery eyes, runny nose, and sneezing.",
+        "price": 7.99,
+        "company": "AllerFree",
+        "image": "/static/medicines/cetirizine.jpg"
+    },
+    {
+        "id": "med_2cdb3789",
+        "name": "Napa",
+        "category": "Fever & Cold",
+        "price": 20.0,
+        "description": "Paracetamol",
+        "company": "Square",
+        "stock": 300,
+        "created_at": "2025-04-21 05:57:36"
+    }
+]

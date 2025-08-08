@@ -1,0 +1,14 @@
+[
+    {
+        "email": "raselraju813@gmail.com",
+        "subscribed_at": "2025-06-05 02:55:27",
+        "status": "active",
+        "source": "landing_page"
+    },
+    {
+        "email": "test@gmail.com",
+        "subscribed_at": "2025-06-05 02:56:14",
+        "status": "active",
+        "source": "landing_page"
+    }
+]
