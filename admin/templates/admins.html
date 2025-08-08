@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+
+{% block title %}Admins Management - PASMA Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="section-title mb-0">Admins Management</h1>
+    <a href="{{ url_for('add_admin') }}" class="btn btn-primary">
+        <i class="fas fa-plus-circle me-2"></i> Add New Admin
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover datatable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for email, admin in admins.items() %}
+                    <tr>
+                        <td>
+                            <div class="d-inline-block bg-primary rounded-circle text-white text-center me-2" style="width: 40px; height: 40px; line-height: 40px;">
+                                {{ admin.name[0] }}
+                            </div>
+                            {{ admin.name }}
+                        </td>
+                        <td>{{ email }}</td>
+                        <td>
+                            {% if admin.role == 'super_admin' %}
+                            <span class="badge bg-danger">Super Admin</span>
+                            {% else %}
+                            <span class="badge bg-primary">Admin</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ admin.created_at }}</td>
+                        <td>
+                            {% if email != session.get('admin_email') %}
+                            <a href="{{ url_for('edit_admin', email=email) }}" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="{{ url_for('delete_admin', email=email) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this admin?')">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                            {% else %}
+                            <span class="text-muted">Current User</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

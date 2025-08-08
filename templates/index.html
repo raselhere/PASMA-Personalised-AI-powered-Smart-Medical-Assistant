@@ -1,0 +1,2052 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PASMA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        :root {
+            --primary-color: #00a884;
+            --primary-dark: #008f6c;
+            --primary-light: #e8f5f1;
+            --secondary-color: #00d4aa;
+            --text-color: #2d3748;
+            --light-text: #718096;
+            --white: #ffffff;
+            --light-bg: #f8f9fa;
+            --border-color: #e2e8f0;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+
+        /* Clean Navigation */
+        .navbar-custom {
+            background-color: var(--white) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+            font-size: 1.4rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-top: 0;
+            margin-left: 2px;
+        }
+
+        .myimg {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+        }
+
+        .navbar-custom .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+        }
+
+        .navbar-custom .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        /* Profile Dropdown - Preserved Functionality */
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-left: 15px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .profile-icon:hover {
+            background-color: var(--primary-color);
+        }
+
+        .profile-icon:hover i {
+            color: var(--white);
+        }
+
+        .profile-icon i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .dropdown-menu {
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-hover);
+            border-radius: 8px;
+            padding: 10px 0;
+            margin-top: 5px;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.2s ease;
+            font-weight: 400;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+            width: 16px;
+        }
+
+        /* Clean Hero Section */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            padding: 60px 0;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 50px 0;
+            background-color: var(--white);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: var(--light-text);
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        /* Clean Form Design */
+        .symptoms-form {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            height: 100%;
+        }
+
+        .symptoms-form label {
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .form-control {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px 15px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background-color: var(--white);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+            outline: none;
+        }
+
+        .form-control:hover {
+            border-color: var(--primary-color);
+        }
+
+        .form-text {
+            color: var(--light-text);
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Clean Buttons */
+        .btn-proceed {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-proceed:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hover);
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        /* Appointment Card */
+        .appointment-card {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: 12px;
+            padding: 30px;
+            color: var(--white);
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: sticky;
+            top: 20px;
+        }
+
+        .appointment-card .section-title {
+            color: var(--white);
+        }
+
+        .appointment-card .section-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .appointment-features {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+
+        .appointment-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .appointment-features li i {
+            color: rgba(255, 255, 255, 0.9);
+            margin-right: 10px;
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        .btn-appointment {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 25px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            margin-top: auto;
+        }
+
+        .btn-appointment:hover {
+            background-color: var(--white);
+            color: var(--primary-color);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .trust-item i {
+            color: #ffd700;
+            font-size: 1rem;
+            width: 18px;
+        }
+
+        .trust-item span strong {
+            color: var(--white);
+        }
+
+        /* Special Offer Badge */
+        .special-offer {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .offer-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 25px;
+            padding: 8px 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .offer-badge i {
+            color: #ffd700;
+            font-size: 1.1rem;
+        }
+
+        .offer-badge span {
+            color: var(--white);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .offer-text {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.8rem;
+            font-style: italic;
+            display: block;
+        }
+
+        /* Patient Testimonial */
+        .testimonial {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .testimonial-content {
+            position: relative;
+        }
+
+        .testimonial-content i.fa-quote-left {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-content p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .testimonial-author strong {
+            color: var(--white);
+            font-size: 0.8rem;
+        }
+
+        .rating {
+            display: flex;
+            gap: 2px;
+        }
+
+        .rating i {
+            color: #ffd700;
+            font-size: 0.7rem;
+        }
+
+        /* Results Section */
+        .results-section {
+            padding: 50px 0;
+            background-color: var(--light-bg);
+        }
+
+        .results-title {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 0 auto;
+            max-width: 800px;
+        }
+
+        .toggle-button {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .toggle-button:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .toggle-button i {
+            font-size: 1.2rem;
+        }
+
+        /* Integrated Results Styling */
+        .results-integrated {
+            border-top: 2px solid var(--primary-light);
+            padding-top: 25px;
+            margin-top: 25px;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .results-title-integrated {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .results-subtitle {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-card {
+            background-color: var(--white);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .result-card-header {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .result-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .result-card:hover .result-icon {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .result-card.active {
+            border-color: var(--primary-color);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .result-card.active .result-icon {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .result-card.active .result-arrow i {
+            transform: rotate(180deg);
+            color: var(--primary-color);
+        }
+
+        /* Dropdown Content Styles */
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .dropdown-content.active {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .dropdown-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--white);
+            padding: 12px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-header i {
+            font-size: 1.1rem;
+        }
+
+        .dropdown-body {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+        }
+
+        .dropdown-body h6 {
+            color: var(--text-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-body p {
+            color: var(--text-color);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* List Styles */
+        .precaution-list,
+        .medication-list,
+        .workout-list,
+        .diet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .precaution-list li,
+        .medication-list li,
+        .workout-list li,
+        .diet-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+            color: var(--text-color);
+        }
+
+        .precaution-list li:last-child,
+        .medication-list li:last-child,
+        .workout-list li:last-child,
+        .diet-list li:last-child {
+            border-bottom: none;
+        }
+
+        .precaution-list li i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
+
+        .medication-list li i {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .workout-list li i {
+            color: #f59e0b;
+            font-size: 0.9rem;
+        }
+
+        .diet-list li i {
+            color: #10b981;
+            font-size: 0.8rem;
+        }
+
+        /* Special Elements */
+        .condition-badge {
+            background-color: var(--primary-light);
+            color: var(--primary-color);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .medication-warning {
+            background-color: #fef3c7;
+            color: #d97706;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+        }
+
+        .medication-warning i {
+            color: #d97706;
+            font-size: 0.9rem;
+        }
+
+        .result-icon {
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .result-icon i {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            transition: all 0.2s ease;
+        }
+
+        .result-content {
+            flex-grow: 1;
+        }
+
+        .result-content h5 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 4px;
+        }
+
+        .result-content p {
+            font-size: 0.85rem;
+            color: var(--light-text);
+            margin-bottom: 0;
+            line-height: 1.3;
+        }
+
+        .result-arrow {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin-left: 10px;
+        }
+
+        .results-footer {
+            background-color: var(--primary-light);
+            border-radius: 6px;
+            padding: 12px 15px;
+        }
+
+        .disclaimer {
+            display: flex;
+            align-items: flex-start;
+            color: var(--text-color);
+        }
+
+        .disclaimer i {
+            color: #f59e0b;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .disclaimer small {
+            line-height: 1.4;
+        }
+
+        /* Modal Styling */
+        .modal-header {
+            background-color: var(--primary-color) !important;
+            color: var(--white) !important;
+            border-bottom: none;
+            padding: 20px 25px;
+        }
+
+        .modal-content {
+            border: none;
+            border-radius: 8px;
+            box-shadow: var(--shadow-hover);
+        }
+
+        .modal-body {
+            padding: 25px;
+            background-color: var(--white);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--white);
+            padding: 15px 25px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        /* Chatbot */
+        #chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+
+        #chatbot-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: var(--shadow-hover);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #chatbot-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        #chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 350px;
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-hover);
+            border: 1px solid var(--border-color);
+            transform: scale(0.95);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+
+        #chat-popup.show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        #chat-header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #chat-header span {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #close-btn {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        #close-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .bot-message {
+            background-color: var(--primary-light);
+            color: var(--text-color);
+            border-radius: 12px 12px 12px 4px;
+            padding: 12px 15px;
+            max-width: 80%;
+            margin-left: 45px;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-radius: 12px 12px 4px 12px;
+            padding: 12px 15px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: 45px;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            position: absolute;
+            border: 2px solid var(--white);
+        }
+
+        .bot-avatar {
+            left: -45px;
+            top: 0;
+        }
+
+        .user-avatar {
+            right: -45px;
+            top: 0;
+        }
+
+        .message-time {
+            display: block;
+            font-size: 0.7rem;
+            margin-top: 5px;
+            text-align: right;
+            opacity: 0.7;
+        }
+
+        #chat-input-area {
+            display: flex;
+            padding: 15px;
+            background-color: var(--white);
+            border-top: 1px solid var(--border-color);
+            gap: 10px;
+        }
+
+        #chat-input {
+            flex: 1;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 10px 15px;
+            outline: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        #chat-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+        }
+
+        #send-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #send-btn:hover {
+            background-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+
+        /* Toast Notification */
+        .toast {
+            border: none;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .toast-header {
+            border-radius: 8px 8px 0 0;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 991px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .page-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .symptoms-form, .appointment-card {
+                margin-bottom: 25px;
+            }
+
+            .appointment-card {
+                height: 350px;
+                position: relative;
+                top: auto;
+            }
+
+            .button-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 12px;
+            }
+
+            #chat-popup {
+                width: calc(100% - 40px);
+                right: 20px;
+                bottom: 90px;
+            }
+
+            #chatbot-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 22px;
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 40px 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .page-subtitle {
+                font-size: 1rem;
+            }
+
+            .main-content {
+                padding: 30px 0;
+            }
+
+            .symptoms-form, .appointment-card {
+                padding: 20px;
+            }
+
+            .appointment-card {
+                height: 280px;
+                position: relative;
+                top: auto;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .button-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .toggle-button {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+
+            /* Integrated Results Mobile */
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .results-title-integrated {
+                font-size: 1.2rem;
+            }
+
+            .result-card {
+                padding: 12px;
+            }
+
+            .result-card-header {
+                flex-direction: row;
+            }
+
+            .result-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 12px;
+            }
+
+            .result-icon i {
+                font-size: 1.1rem;
+            }
+
+            .result-content h5 {
+                font-size: 0.9rem;
+            }
+
+            .result-content p {
+                font-size: 0.8rem;
+            }
+
+            .dropdown-body {
+                padding: 12px;
+            }
+
+            .dropdown-body h6 {
+                font-size: 0.85rem;
+            }
+
+            .dropdown-body p {
+                font-size: 0.8rem;
+            }
+
+            .condition-badge {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+
+            .medication-warning {
+                padding: 8px 10px;
+                font-size: 0.75rem;
+            }
+
+            .disclaimer small {
+                font-size: 0.75rem;
+            }
+
+            #chat-messages {
+                height: 280px;
+                padding: 12px;
+            }
+
+            .bot-message, .user-message {
+                margin-left: 35px;
+                margin-right: 35px;
+                max-width: 85%;
+                padding: 10px 12px;
+            }
+
+            .avatar {
+                width: 30px;
+                height: 30px;
+            }
+
+            .bot-avatar {
+                left: -35px;
+            }
+
+            .user-avatar {
+                right: -35px;
+            }
+
+            /* Responsive adjustments for encouraging elements */
+            .trust-indicators {
+                margin: 10px 0;
+            }
+
+            .trust-item {
+                font-size: 0.8rem;
+            }
+
+            .trust-item i {
+                font-size: 0.9rem;
+                width: 16px;
+            }
+
+            .special-offer {
+                margin: 10px 0;
+            }
+
+            .offer-badge {
+                padding: 6px 12px;
+            }
+
+            .offer-badge span {
+                font-size: 0.8rem;
+            }
+
+            .offer-text {
+                font-size: 0.75rem;
+            }
+
+            .testimonial {
+                padding: 12px;
+                margin: 10px 0;
+            }
+
+            .testimonial-content p {
+                font-size: 0.8rem;
+            }
+
+            .testimonial-author strong {
+                font-size: 0.75rem;
+            }
+
+            .rating i {
+                font-size: 0.65rem;
+            }
+
+            .btn-proceed, .btn-appointment {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-title {
+                font-size: 1.6rem;
+            }
+
+            .page-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .symptoms-form, .appointment-card {
+                padding: 15px;
+            }
+
+            .appointment-card {
+                height: 280px;
+                position: relative;
+                top: auto;
+            }
+
+            .section-title {
+                font-size: 1.3rem;
+            }
+
+            .btn-proceed, .btn-appointment {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            /* Integrated Results Small Mobile */
+            .results-integrated {
+                padding-top: 20px;
+                margin-top: 20px;
+            }
+
+            .results-header {
+                margin-bottom: 20px;
+            }
+
+            .results-title-integrated {
+                font-size: 1.1rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .results-subtitle {
+                font-size: 0.85rem;
+            }
+
+            .result-card {
+                padding: 10px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .result-icon {
+                width: 35px;
+                height: 35px;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+
+            .result-content h5 {
+                font-size: 0.85rem;
+                margin-bottom: 2px;
+            }
+
+            .result-content p {
+                font-size: 0.75rem;
+            }
+
+            .result-arrow {
+                display: none;
+            }
+
+            .results-footer {
+                padding: 10px 12px;
+            }
+        }
+
+        /* Form validation */
+        .is-invalid {
+            border-color: #dc3545 !important;
+        }
+
+        .is-invalid:focus {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+        }
+
+        .invalid-feedback {
+            display: none;
+            color: #dc3545;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+        }
+
+        .is-invalid ~ .invalid-feedback {
+            display: block;
+        }
+    </style>
+  </head>
+
+  <body{% if login_success %} data-login-success="true"{% endif %}>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <div class="logo">
+                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+            </div>
+            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('purchase') }}">Purchase</a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if profile_picture %}
+                                <img src="{{ url_for('static', filename=profile_picture.replace('static/', '')) }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('patient_appointment') }}"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="container">
+        <h1 class="page-title">Personalised AI Powered Smart Medical Assistant</h1>
+        <p class="page-subtitle">Trusted Information for a Healthier You</p>
+      </div>
+    </header>
+    <!-- Toast notification for successful login -->
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+      <div id="loginToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="background-color: var(--primary-color); color: var(--white);">
+          <i class="fas fa-check-circle me-2"></i>
+          <strong class="me-auto">PASMA</strong>
+          <small>Just now</small>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          Logged in successfully!
+        </div>
+      </div>
+    </div>
+
+    <!-- Symptoms and Appointment Section -->
+    <section class="container my-5 main-content">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="row g-4">
+        <!-- Left Section: Symptoms Form -->
+        <div class="col-md-7">
+          <div class="symptoms-form h-100">
+            <h3 class="section-title mb-4">Check Your Symptoms</h3>
+            <p class="section-subtitle mb-4">Enter your symptoms below to get AI-powered health recommendations.</p>
+            <form action="/predict" method="post">
+              <div class="form-group">
+                <label for="symptoms">Enter Your Symptoms</label>
+                <input type="text" class="form-control" id="symptoms" name="symptoms"
+                       placeholder="Example: itching, vomiting, fever">
+                <!-- Suggestions will be added here by JavaScript -->
+                <div class="form-text mt-1">
+                  <small>Separate multiple symptoms with commas. Example: itching, skin_rash</small>
+                </div>
+              </div>
+              <button type="submit" class="btn-proceed mt-3">
+                <i class="fas fa-arrow-right me-2"></i> Get Recommendations
+              </button>
+            </form>
+
+            <!-- Results Section - Integrated -->
+            {% if predicted_disease %}
+            <div class="results-integrated mt-4">
+              <div class="results-header">
+                <h4 class="results-title-integrated">
+                  <i class="fas fa-chart-line me-2"></i>Your Health Analysis Results
+                </h4>
+                <p class="results-subtitle">Based on your symptoms, here's what we found:</p>
+              </div>
+              
+              <div class="results-grid">
+                <div class="result-card" onclick="toggleDropdown('disease')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Predicted Condition</h5>
+                      <p>{{ predicted_disease }}</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-disease"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-disease">
+                    <div class="dropdown-header">
+                      <i class="fas fa-stethoscope"></i>
+                      <span>Predicted Condition Details</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <h6>Diagnosis:</h6>
+                      <p>{{ predicted_disease }}</p>
+                      <div class="condition-badge">
+                        <i class="fas fa-info-circle"></i>
+                        AI-Generated Prediction
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-card" onclick="toggleDropdown('description')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Description</h5>
+                      <p>Learn more about this condition</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-description"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-description">
+                    <div class="dropdown-header">
+                      <i class="fas fa-info-circle"></i>
+                      <span>Condition Description</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <p>{{ dis_des }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-card" onclick="toggleDropdown('precaution')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Precautions</h5>
+                      <p>Important safety measures</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-precaution"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-precaution">
+                    <div class="dropdown-header">
+                      <i class="fas fa-shield-alt"></i>
+                      <span>Safety Precautions</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <h6>Recommended Precautions:</h6>
+                      <ul class="precaution-list">
+                        {% for precaution in my_precautions %}
+                          <li><i class="fas fa-check-circle"></i> {{ precaution }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-card" onclick="toggleDropdown('medications')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-pills"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Medications</h5>
+                      <p>Suggested treatments</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-medications"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-medications">
+                    <div class="dropdown-header">
+                      <i class="fas fa-pills"></i>
+                      <span>Suggested Medications</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <h6>Recommended Treatments:</h6>
+                      <ul class="medication-list">
+                        {% for medication in medications %}
+                          <li><i class="fas fa-capsules"></i> {{ medication }}</li>
+                        {% endfor %}
+                      </ul>
+                      <div class="medication-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <small>Consult a doctor before taking any medication</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-card" onclick="toggleDropdown('workout')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Exercise Plan</h5>
+                      <p>Recommended activities</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-workout"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-workout">
+                    <div class="dropdown-header">
+                      <i class="fas fa-dumbbell"></i>
+                      <span>Exercise Recommendations</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <h6>Recommended Activities:</h6>
+                      <ul class="workout-list">
+                        {% for exercise in workout %}
+                          <li><i class="fas fa-running"></i> {{ exercise }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="result-card" onclick="toggleDropdown('diets')">
+                  <div class="result-card-header">
+                    <div class="result-icon">
+                      <i class="fas fa-apple-alt"></i>
+                    </div>
+                    <div class="result-content">
+                      <h5>Diet Plan</h5>
+                      <p>Nutritional recommendations</p>
+                    </div>
+                    <div class="result-arrow">
+                      <i class="fas fa-chevron-down" id="arrow-diets"></i>
+                    </div>
+                  </div>
+                  <div class="dropdown-content" id="dropdown-diets">
+                    <div class="dropdown-header">
+                      <i class="fas fa-apple-alt"></i>
+                      <span>Dietary Recommendations</span>
+                    </div>
+                    <div class="dropdown-body">
+                      <h6>Recommended Diet:</h6>
+                      <ul class="diet-list">
+                        {% for diet in my_diet %}
+                          <li><i class="fas fa-leaf"></i> {{ diet }}</li>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="results-footer mt-3">
+                <div class="disclaimer">
+                  <i class="fas fa-exclamation-triangle me-2"></i>
+                  <small><strong>Disclaimer:</strong> This analysis is for informational purposes only. Please consult a healthcare professional for proper diagnosis and treatment.</small>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Right Section: Appointment -->
+        <div class="col-md-5">
+          <div class="appointment-card h-100 ms-md-auto" style="max-width: 90%;">
+            <div class="appointment-content">
+              <h3 class="section-title">Schedule a Consultation</h3>
+              <p class="section-subtitle mb-4">Need personalized medical advice? Book an appointment with one of our healthcare professionals.</p>
+              
+              <!-- Trust Indicators -->
+              <div class="trust-indicators mb-3">
+                <div class="trust-item">
+                  <i class="fas fa-star"></i>
+                  <span><strong>4.9/5</strong> Average Rating</span>
+                </div>
+                <div class="trust-item">
+                  <i class="fas fa-users"></i>
+                  <span><strong>50K+</strong> Satisfied Patients</span>
+                </div>
+                <div class="trust-item">
+                  <i class="fas fa-clock"></i>
+                  <span><strong>24/7</strong> Available Support</span>
+                </div>
+              </div>
+
+              <ul class="appointment-features">
+                <li><i class="fas fa-user-md"></i> Expert medical professionals</li>
+                <li><i class="fas fa-calendar-check"></i> Flexible scheduling options</li>
+                <li><i class="fas fa-video"></i> Virtual consultations available</li>
+                <li><i class="fas fa-shield-check"></i> 100% confidential & secure</li>
+                <li><i class="fas fa-mobile-alt"></i> Mobile-friendly platform</li>
+                <li><i class="fas fa-headset"></i> 24/7 customer support</li>
+              </ul>
+
+              <!-- Special Offer Badge -->
+              <div class="special-offer mb-3">
+                <div class="offer-badge">
+                  <i class="fas fa-gift"></i>
+                  <span><strong>FREE</strong> First Consultation</span>
+                </div>
+                <small class="offer-text">Limited time offer - Book now!</small>
+              </div>
+
+              <!-- Patient Testimonial -->
+              <div class="testimonial mb-3">
+                <div class="testimonial-content">
+                  <i class="fas fa-quote-left"></i>
+                  <p>"PASMA helped me get the right diagnosis quickly. The doctors are very professional!"</p>
+                  <div class="testimonial-author">
+                    <strong>- Sarah M.</strong>
+                    <div class="rating">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <a href="{{ url_for('new_appointment') }}" class="btn-appointment">
+                <i class="fas fa-calendar-plus me-2"></i> Make New Appointment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chatbot Container -->
+    <div id="chatbot-container">
+        <!-- Chatbot Button -->
+        <button id="chatbot-btn" onclick="toggleChatbot()">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+
+        <!-- Chatbot Popup -->
+        <div id="chat-popup">
+            <div id="chat-header">
+                <span><i class="fas fa-robot"></i> PASMA AI Assistant</span>
+                <button id="close-btn" onclick="toggleChatbot()">✖</button>
+            </div>
+            <div id="chat-messages">
+                <!-- Initial welcome message -->
+                <div class="message bot-message">
+                    <img class="avatar bot-avatar" src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot">
+                    Hello! I'm your PASMA AI Assistant. How can I help you today?
+                    <span class="message-time">Just now</span>
+                </div>
+                <div class="typing-indicator">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
+            </div>
+            <div id="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type a message..." />
+                <button id="send-btn" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Chatbot responses database
+    const responses = {
+        // General Wellness
+        "how to stay healthy": "Maintaining good health involves regular exercise, balanced nutrition, adequate sleep, stress management, and regular check-ups. Note: This information is for educational purposes only and not a substitute for professional medical advice.",
+        "tips for good health": "For good health: eat a balanced diet, exercise regularly, get enough sleep, manage stress, stay hydrated, and avoid smoking and excessive alcohol. Regular check-ups are also important.",
+        "how to boost immune system": "To boost your immune system: eat nutrient-rich foods, get adequate sleep, exercise regularly, manage stress, stay hydrated, and consider vitamin D supplementation if deficient.",
+        "how to improve overall health": "Improve overall health through regular physical activity, balanced nutrition, adequate sleep (7-9 hours), stress management, staying hydrated, and avoiding tobacco and excessive alcohol.",
+        "preventive health measures": "Preventive health measures include regular check-ups, vaccinations, cancer screenings, maintaining healthy weight, regular exercise, and avoiding smoking and excessive alcohol.",
+
+        // Common Symptoms
+        "headache causes": "Headaches can be caused by stress, dehydration, lack of sleep, eye strain, sinus issues, or more serious conditions. Persistent or severe headaches warrant medical attention.",
+        "fever treatment": "For fever: rest, stay hydrated, take acetaminophen or ibuprofen if needed (follow dosage instructions), and use light clothing/blankets. Seek medical help for high fevers (above 103°F/39.4°C) or if  and use light clothing Seek medical help for high fevers (above 103°F/39.4°C) or if and use light clothing/blankets. Seek medical help for high fevers (above 103°F/39.4°C) or if it persists.",
+        "sore throat remedies": "Sore throat remedies include warm saltwater gargles, staying hydrated, throat lozenges, honey in warm tea, and OTC pain relievers. See a doctor if it persists beyond a week or is severe.",
+        "cough treatment": "For coughs: stay hydrated, use honey (if over 1 year old), try cough drops, use a humidifier, and avoid irritants. See a doctor for persistent coughs or if accompanied by other concerning symptoms.",
+        "stomach pain causes": "Stomach pain can result from indigestion, gas, constipation, food poisoning, ulcers, or more serious conditions. Seek medical attention for severe or persistent pain, especially with fever or vomiting.",
+        "nausea remedies": "For nausea: try ginger tea, small bland meals, avoid strong odors, stay hydrated, and rest. Seek medical help if nausea persists or is accompanied by severe pain or dehydration.",
+
+        // Nutrition and Diet
+        "healthy diet tips": "A healthy diet includes plenty of fruits, vegetables, whole grains, lean proteins, and healthy fats. Limit processed foods, added sugars, and excessive salt. Stay hydrated with water.",
+        "balanced meal plan": "A balanced meal should include: 1/2 plate vegetables/fruits, 1/4 plate whole grains, and 1/4 plate protein. Include healthy fats and dairy/alternatives in moderation.",
+        "how much water to drink": "Most adults should drink about 8 cups (64 ounces) of water daily, but needs vary based on activity level, climate, and individual health. Urine should be pale yellow if properly hydrated.",
+
+        // Mental Health
+        "stress management": "Manage stress through regular exercise, adequate sleep, deep breathing, meditation, time in nature, limiting caffeine and alcohol, and connecting with supportive people.",
+        "anxiety relief": "For anxiety relief: practice deep breathing, progressive muscle relaxation, mindfulness meditation, regular exercise, limit caffeine, maintain a consistent sleep schedule, and consider counseling.",
+        "depression symptoms": "Depression symptoms include persistent sadness, loss of interest in activities, changes in appetite or sleep, fatigue, difficulty concentrating, feelings of worthlessness, and thoughts of death.",
+
+        // Fallback responses
+        "default": "I don't have specific information on that health topic. For personalized medical advice, please consult with a healthcare professional.",
+        "greeting": "Hello! I'm PASMA's health assistant. How can I help you with your health questions today?",
+        "thanks": "You're welcome! Is there anything else I can help you with regarding your health?",
+        "goodbye": "Take care and stay healthy! Feel free to return if you have more health questions.",
+        "help": "I can provide general information about common health topics, symptoms, and wellness tips. What would you like to know about?"
+    };
+
+    // Toggle chatbot visibility
+    function toggleChatbot() {
+        var chatPopup = document.getElementById("chat-popup");
+        if (chatPopup.classList.contains("show")) {
+            chatPopup.classList.remove("show");
+            setTimeout(() => chatPopup.style.display = "none", 300);
+        } else {
+            chatPopup.style.display = "block";
+            setTimeout(() => chatPopup.classList.add("show"), 10);
+            // Focus on input field when chat is opened
+            setTimeout(() => document.getElementById("chat-input").focus(), 300);
+        }
+    }
+
+    // Format current time for message timestamps
+    function getCurrentTime() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+
+        return hours + ':' + minutes + ' ' + ampm;
+    }
+
+    // Show typing indicator
+    function showTypingIndicator() {
+        const typingIndicator = document.querySelector('.typing-indicator');
+        typingIndicator.style.display = 'block';
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+    }
+
+    // Hide typing indicator
+    function hideTypingIndicator() {
+        const typingIndicator = document.querySelector('.typing-indicator');
+        typingIndicator.style.display = 'none';
+    }
+
+    // Find the best match for user input
+    function findBestMatch(userInput) {
+        userInput = userInput.toLowerCase();
+
+        // Check for exact matches first
+        if (userInput in responses) {
+            return responses[userInput];
+        }
+
+        // Check for greetings
+        if (/\b(hi|hello|hey|greetings)\b/.test(userInput)) {
+            return responses["greeting"];
+        }
+
+        // Check for thanks
+        if (/\b(thanks|thank you|appreciate it)\b/.test(userInput)) {
+            return responses["thanks"];
+        }
+
+        // Check for goodbyes
+        if (/\b(bye|goodbye|see you|farewell)\b/.test(userInput)) {
+            return responses["goodbye"];
+        }
+
+        // Check for help requests
+        if (/\b(help|assist|support)\b/.test(userInput)) {
+            return responses["help"];
+        }
+
+        // Check for partial matches
+        let bestMatch = null;
+        let highestScore = 0;
+
+        for (const key in responses) {
+            if (["default", "greeting", "thanks", "goodbye", "help"].includes(key)) {
+                continue;
+            }
+
+            // Calculate match score based on word overlap
+            const keyWords = new Set(key.split(' '));
+            const inputWords = new Set(userInput.split(' '));
+            const commonWords = [...keyWords].filter(word => inputWords.has(word));
+
+            if (commonWords.length > 0) {
+                const score = commonWords.length / keyWords.size;
+                if (score > highestScore) {
+                    highestScore = score;
+                    bestMatch = key;
+                }
+            }
+        }
+
+        // Return the best match if score is above threshold, otherwise default response
+        if (bestMatch && highestScore > 0.3) {
+            return responses[bestMatch];
+        } else {
+            return responses["default"];
+        }
+    }
+
+    // Send message function
+    function sendMessage() {
+        let inputField = document.getElementById("chat-input");
+        let message = inputField.value.trim();
+        if (message === "") return;
+
+        let chatMessages = document.getElementById("chat-messages");
+        const currentTime = getCurrentTime();
+
+        // Add user message
+        let userMsgDiv = document.createElement("div");
+        userMsgDiv.classList.add("message", "user-message");
+        userMsgDiv.innerHTML = `
+            <img class="avatar user-avatar" src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="You">
+            ${message}
+            <span class="message-time">${currentTime}</span>
+        `;
+        chatMessages.appendChild(userMsgDiv);
+
+        // Clear input and scroll to bottom
+        inputField.value = "";
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        // Show typing indicator
+        showTypingIndicator();
+
+        // Process the message with a slight delay to show typing effect
+        setTimeout(() => {
+            // Get response using the findBestMatch function
+            const response = findBestMatch(message);
+
+            // Hide typing indicator
+            hideTypingIndicator();
+
+            // Add bot message
+            let botMsgDiv = document.createElement("div");
+            botMsgDiv.classList.add("message", "bot-message");
+            botMsgDiv.innerHTML = `
+                <img class="avatar bot-avatar" src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png" alt="Bot">
+                ${response}
+                <span class="message-time">${getCurrentTime()}</span>
+            `;
+            chatMessages.appendChild(botMsgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 1500); // 1.5 second delay to show typing
+    }
+
+    // Trigger sendMessage() when "Enter" is pressed
+    document.getElementById("chat-input").addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); // Prevents new line in input
+            sendMessage();
+        }
+    });
+
+    // Mock data for symptoms prediction
+    const mockDiseases = {
+        "itching, skin_rash": {
+            disease: "Fungal infection",
+            description: "A fungal infection is a skin disease caused by a fungus. Common infections include athlete's foot, jock itch, ringworm, and yeast infections.",
+            precautions: ["Keep the affected area clean and dry", "Use antifungal medications as prescribed", "Avoid sharing personal items", "Wear loose-fitting clothing"],
+            medications: ["Clotrimazole", "Miconazole", "Terbinafine", "Fluconazole"],
+            workout: ["Light walking", "Gentle stretching", "Avoid excessive sweating during acute infection"],
+            diet: ["Probiotic-rich foods", "Low-sugar diet", "Garlic and onions", "Plenty of water"]
+        },
+        "vomiting, headache, fever": {
+            disease: "Migraine",
+            description: "Migraine is a neurological condition that can cause multiple symptoms including throbbing headaches, nausea, vomiting, and sensitivity to light and sound.",
+            precautions: ["Identify and avoid triggers", "Maintain regular sleep schedule", "Stay hydrated", "Manage stress"],
+            medications: ["Sumatriptan", "Rizatriptan", "Ibuprofen", "Acetaminophen"],
+            workout: ["Regular moderate exercise", "Yoga", "Walking", "Swimming"],
+            diet: ["Regular meals", "Avoid trigger foods", "Stay hydrated", "Limit caffeine"]
+        },
+        "fatigue, cough, fever": {
+            disease: "Common Cold",
+            description: "The common cold is a viral infection of your nose and throat. It's usually harmless, although it might not feel that way. Many types of viruses can cause a common cold.",
+            precautions: ["Rest adequately", "Stay hydrated", "Wash hands frequently", "Avoid close contact with others"],
+            medications: ["Acetaminophen", "Decongestants", "Cough suppressants", "Zinc lozenges"],
+            workout: ["Rest during acute symptoms", "Light walking when recovering", "Gentle stretching"],
+            diet: ["Chicken soup", "Hot tea with honey", "Citrus fruits", "Plenty of fluids"]
+        },
+        "default": {
+            disease: "Unspecified condition",
+            description: "Based on the symptoms provided, a specific condition could not be determined. Please consult with a healthcare professional for proper diagnosis.",
+            precautions: ["Rest adequately", "Stay hydrated", "Monitor symptoms", "Consult a healthcare provider"],
+            medications: ["Consult with a healthcare provider before taking any medications"],
+            workout: ["Light activity as tolerated", "Listen to your body"],
+            diet: ["Balanced nutrition", "Stay hydrated", "Avoid processed foods"]
+        }
+    };
+
+    // Handle symptoms form submission
+    document.getElementById("symptoms-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const symptoms = document.getElementById("symptoms").value.trim();
+        if (!symptoms) return;
+
+        // Find matching disease or use default
+        const result = mockDiseases[symptoms] || mockDiseases["default"];
+
+        // Update the UI with the results
+        document.getElementById("predicted-disease").textContent = result.disease;
+        document.getElementById("disease-description").textContent = result.description;
+
+        // Clear and populate precautions list
+        const precautionsList = document.getElementById("precautions-list");
+        precautionsList.innerHTML = "";
+        result.precautions.forEach(precaution => {
+            const li = document.createElement("li");
+            li.textContent = precaution;
+            precautionsList.appendChild(li);
+        });
+
+        // Clear and populate medications list
+        const medicationsList = document.getElementById("medications-list");
+        medicationsList.innerHTML = "";
+        result.medications.forEach(medication => {
+            const li = document.createElement("li");
+            li.textContent = medication;
+            medicationsList.appendChild(li);
+        });
+
+        // Clear and populate workout list
+        const workoutList = document.getElementById("workout-list");
+        workoutList.innerHTML = "";
+        result.workout.forEach(workout => {
+            const li = document.createElement("li");
+            li.textContent = workout;
+            workoutList.appendChild(li);
+        });
+
+        // Clear and populate diet list
+        const dietList = document.getElementById("diet-list");
+        dietList.innerHTML = "";
+        result.diet.forEach(diet => {
+            const li = document.createElement("li");
+            li.textContent = diet;
+            dietList.appendChild(li);
+        });
+
+        // Show the results section
+        document.getElementById("results-section").style.display = "block";
+
+        // Scroll to results section
+        document.getElementById("results-section").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Initialize chatbot with a welcome message
+    document.addEventListener('DOMContentLoaded', function() {
+        // The welcome message is already in the HTML
+        // This ensures the chat is scrolled to the bottom on load
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+    });
+</script>
+  <script>
+  // Show login toast if user just logged in
+  document.addEventListener('DOMContentLoaded', function() {
+    // Check if login success flag is set
+    const loginSuccess = document.body.dataset.loginSuccess === 'true';
+    if (loginSuccess) {
+      var loginToast = new bootstrap.Toast(document.getElementById('loginToast'), {
+        delay: 3000
+      });
+      loginToast.show();
+    }
+  });
+
+  // Dropdown toggle functionality for result cards
+  function toggleDropdown(cardId) {
+    const dropdown = document.getElementById('dropdown-' + cardId);
+    const arrow = document.getElementById('arrow-' + cardId);
+    const card = dropdown.parentElement;
+    
+    // Close all other dropdowns
+    const allDropdowns = document.querySelectorAll('.dropdown-content');
+    const allArrows = document.querySelectorAll('.result-arrow i');
+    const allCards = document.querySelectorAll('.result-card');
+    
+    allDropdowns.forEach(function(dd) {
+      if (dd !== dropdown) {
+        dd.classList.remove('active');
+      }
+    });
+    
+    allCards.forEach(function(c) {
+      if (c !== card) {
+        c.classList.remove('active');
+      }
+    });
+    
+    // Toggle current dropdown
+    dropdown.classList.toggle('active');
+    card.classList.toggle('active');
+  }
+</script>
+
+    <!-- Add our symptom validation script before the closing body tag -->
+    <script src="{{ url_for('static', filename='js/symptom-validation.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Appointments - PASMA</title>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+      --primary-color: #00a884;
+      --secondary-color: #e8f5f1;
+      --text-color: #333333;
+      --light-text: #666666;
+      --white: #ffffff;
+      --teal: #00a884;
+  }
+
+  body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+      background-color: var(--white);
+  }
+
+  .logo {
+      width: 50px;
+      height: 50px;
+      margin-top: 0;
+      margin-left: 2px;
+  }
+
+  .myimg {
+      width: 50px;
+      height: 50px;
+      border: 2px solid var(--primary-color);
+      border-radius: 25px;
+  }
+
+  .navbar-custom {
+      background-color: var(--white) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-custom .nav-link {
+      color: var(--text-color) !important;
+      font-weight: 500;
+  }
+
+  .navbar-custom .nav-link.active {
+      color: var(--primary-color) !important;
+  }
+
+  .appointments-section {
+      padding: 80px 0;
+  }
+
+  .section-title {
+      font-size: 2.5rem;
+      color: var(--teal);
+      text-align: center;
+      margin-bottom: 50px;
+      font-weight: 600;
+  }
+
+  .appointments-container {
+      background-color: var(--white);
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      margin: 0 auto;
+      max-width: 1000px;
+  }
+
+  .appointments-header {
+      background-color: var(--secondary-color);
+      padding: 30px;
+      text-align: center;
+      position: relative;
+  }
+
+  .appointments-icon {
+      font-size: 50px;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+  }
+
+  .appointments-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0;
+  }
+
+  .appointments-body {
+      padding: 30px;
+  }
+
+  .appointments-tabs {
+      display: flex;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #e0e0e0;
+  }
+
+  .appointments-tab {
+      padding: 15px 25px;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s ease;
+  }
+
+  .appointments-tab.active {
+      color: var(--primary-color);
+  }
+
+  .appointments-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: var(--primary-color);
+  }
+
+  .tab-content {
+      display: none;
+  }
+
+  .tab-content.active {
+      display: block;
+  }
+
+  .appointment-card {
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+  }
+
+  .appointment-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .appointment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+  }
+
+  .appointment-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--primary-color);
+  }
+
+  .appointment-status {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+  }
+
+  .status-upcoming {
+      background-color: #e8f5ff;
+      color: #0077cc;
+  }
+
+  .status-completed {
+      background-color: #e8f8e8;
+      color: #28a745;
+  }
+
+  .status-cancelled {
+      background-color: #ffeeee;
+      color: #dc3545;
+  }
+
+  .appointment-details {
+      display: flex;
+      flex-wrap: wrap;
+  }
+
+  .appointment-detail {
+      flex: 1 1 33%;
+      margin-bottom: 10px;
+      min-width: 200px;
+  }
+
+  .detail-label {
+      font-size: 0.9rem;
+      color: var(--light-text);
+      margin-bottom: 3px;
+  }
+
+  .detail-value {
+      font-weight: 500;
+  }
+
+  .appointment-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 15px;
+  }
+
+  .btn-action {
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-left: 10px;
+      transition: all 0.3s ease;
+  }
+
+  .btn-edit {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+  }
+
+  .btn-edit:hover {
+      background-color: #008f6c;
+      transform: translateY(-2px);
+  }
+
+  .btn-cancel {
+      background-color: #f8d7da;
+      color: #dc3545;
+      border: none;
+  }
+
+  .btn-cancel:hover {
+      background-color: #f5c2c7;
+      transform: translateY(-2px);
+  }
+
+  .btn-complete {
+      background-color: #d1e7dd;
+      color: #198754;
+      border: none;
+  }
+
+  .btn-complete:hover {
+      background-color: #badbcc;
+      transform: translateY(-2px);
+  }
+
+  .dropdown-menu {
+      border: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+  }
+
+  .dropdown-item {
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+  }
+
+  .dropdown-item:hover {
+      background-color: var(--secondary-color);
+  }
+
+  .dropdown-item i {
+      margin-right: 10px;
+      color: var(--primary-color);
+  }
+
+  .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  }
+
+  .profile-icon:hover {
+      background-color: var(--primary-color);
+  }
+
+  .profile-icon:hover i {
+      color: var(--white);
+  }
+
+  .profile-icon i {
+      color: var(--primary-color);
+      font-size: 1.2rem;
+  }
+
+  .modal-header {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+  }
+
+  .modal-title {
+      font-weight: 600;
+  }
+
+  .form-control {
+      margin-bottom: 15px;
+      border-radius: 8px;
+      padding: 12px 15px;
+      border: 1px solid #e0e0e0;
+  }
+
+  .form-control:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+  }
+
+  .btn-save {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+  }
+
+  .btn-save:hover {
+      background-color: #008f6c;
+      transform: translateY(-2px);
+  }
+
+  .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+  }
+
+  .empty-state-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 15px;
+  }
+
+  .empty-state-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+  }
+
+  .empty-state-text {
+      color: var(--light-text);
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+    <div class="container">
+        <div class="logo">
+            <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+        </div>
+        <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA DOC</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('doctor_dashboard') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('doctor_appointments') }}">Appointments</a>
+                </li>
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li><a class="dropdown-item" href="{{ url_for('doctor_profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('doctor_settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('doctor_logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Appointments Section -->
+<section class="appointments-section">
+  <div class="container">
+      <h1 class="section-title">Manage Appointments</h1>
+
+      <div class="appointments-container">
+          <div class="appointments-header">
+              <div class="appointments-icon">
+                  <i class="fas fa-calendar-check"></i>
+              </div>
+              <h2 class="appointments-title">Your Patient Appointments</h2>
+          </div>
+
+          <div class="appointments-body">
+              <!-- Tabs -->
+              <div class="appointments-tabs">
+                  <div class="appointments-tab active" onclick="showTab('upcoming')">Upcoming Appointments</div>
+                  <div class="appointments-tab" onclick="showTab('previous')">Previous Appointments</div>
+              </div>
+
+              <!-- Upcoming Appointments Tab -->
+              <div id="upcoming-tab" class="tab-content active">
+                  {% set has_upcoming = false %}
+                  {% for appointment in appointments %}
+                      {% if appointment.status == 'Upcoming' %}
+                          {% set has_upcoming = true %}
+                          <div class="appointment-card">
+                              <div class="appointment-header">
+                                  <div class="appointment-title">Appointment with {{ appointment.patient_name }}</div>
+                                  <div class="appointment-status status-upcoming">{{ appointment.status }}</div>
+                              </div>
+                              <div class="appointment-details">
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Date</div>
+                                      <div class="detail-value">{{ appointment.date }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Time</div>
+                                      <div class="detail-value">{{ appointment.time }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Patient Email</div>
+                                      <div class="detail-value">{{ appointment.patient_email }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Purpose</div>
+                                      <div class="detail-value">{{ appointment.purpose }}</div>
+                                  </div>
+                                  {% if appointment.notes %}
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Notes</div>
+                                      <div class="detail-value">{{ appointment.notes }}</div>
+                                  </div>
+                                  {% endif %}
+                                  {% if appointment.doctor_notes %}
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Doctor's Notes</div>
+                                      <div class="detail-value">{{ appointment.doctor_notes }}</div>
+                                  </div>
+                                  {% endif %}
+                              </div>
+                              <div class="appointment-actions">
+                                  <button class="btn-action" style="background-color: var(--primary-color); color: var(--white);" data-bs-toggle="modal" data-bs-target="#patientProfileModal{{ appointment.id }}">
+                                      <i class="fas fa-user me-2"></i> View Patient's Profile
+                                  </button>
+                                  <form action="{{ url_for('update_appointment_status') }}" method="POST" class="d-inline">
+                                      <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                                      <input type="hidden" name="status" value="Completed">
+                                      <button type="submit" class="btn-action btn-complete">
+                                          <i class="fas fa-check me-2"></i> Mark as Completed
+                                      </button>
+                                  </form>
+                                  <form action="{{ url_for('update_appointment_status') }}" method="POST" class="d-inline">
+                                      <input type="hidden" name="appointment_id" value="{{ appointment.id }}">
+                                      <input type="hidden" name="status" value="Cancelled">
+                                      <button type="submit" class="btn-action btn-cancel">
+                                          <i class="fas fa-times me-2"></i> Cancel
+                                      </button>
+                                  </form>
+                              </div>
+                          </div>
+                      {% endif %}
+                  {% endfor %}
+
+                  {% if not has_upcoming %}
+                      <div class="empty-state">
+                          <div class="empty-state-icon">
+                              <i class="fas fa-calendar-times"></i>
+                          </div>
+                          <h3 class="empty-state-title">No Upcoming Appointments</h3>
+                          <p class="empty-state-text">You don't have any upcoming appointments scheduled at the moment.</p>
+                      </div>
+                  {% endif %}
+              </div>
+
+              <!-- Previous Appointments Tab -->
+              <div id="previous-tab" class="tab-content">
+                  {% set has_previous = false %}
+                  {% for appointment in appointments %}
+                      {% if appointment.status == 'Completed' or appointment.status == 'Cancelled' %}
+                          {% set has_previous = true %}
+                          <div class="appointment-card">
+                              <div class="appointment-header">
+                                  <div class="appointment-title">Appointment with {{ appointment.patient_name }}</div>
+                                  <div class="appointment-status status-{{ appointment.status|lower }}">{{ appointment.status }}</div>
+                              </div>
+                              <div class="appointment-details">
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Date</div>
+                                      <div class="detail-value">{{ appointment.date }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Time</div>
+                                      <div class="detail-value">{{ appointment.time }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Patient Email</div>
+                                      <div class="detail-value">{{ appointment.patient_email }}</div>
+                                  </div>
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Purpose</div>
+                                      <div class="detail-value">{{ appointment.purpose }}</div>
+                                  </div>
+                                  {% if appointment.notes %}
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Patient Notes</div>
+                                      <div class="detail-value">{{ appointment.notes }}</div>
+                                  </div>
+                                  {% endif %}
+                                  {% if appointment.doctor_notes %}
+                                  <div class="appointment-detail">
+                                      <div class="detail-label">Doctor's Notes</div>
+                                      <div class="detail-value">{{ appointment.doctor_notes }}</div>
+                                  </div>
+                                  {% endif %}
+                              </div>
+                              <div class="appointment-actions">
+                                  <button class="btn-action" style="background-color: var(--primary-color); color: var(--white);" data-bs-toggle="modal" data-bs-target="#patientProfileModal{{ appointment.id }}">
+                                      <i class="fas fa-user me-2"></i> View Patient's Profile
+                                  </button>
+                              </div>
+                          </div>
+                      {% endif %}
+                  {% endfor %}
+
+                  {% if not has_previous %}
+                      <div class="empty-state">
+                          <div class="empty-state-icon">
+                              <i class="fas fa-history"></i>
+                          </div>
+                          <h3 class="empty-state-title">No Previous Appointments</h3>
+                          <p class="empty-state-text">You don't have any completed or cancelled appointments yet.</p>
+                      </div>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Patient Profile Modals -->
+{% for appointment in appointments %}
+<div class="modal fade" id="patientProfileModal{{ appointment.id }}" tabindex="-1" aria-labelledby="patientProfileModalLabel{{ appointment.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: var(--secondary-color);">
+                <h5 class="modal-title" id="patientProfileModalLabel{{ appointment.id }}" style="color: var(--primary-color); font-weight: 600;">
+                    <i class="fas fa-user-circle me-2"></i> Patient Profile
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- In the Patient Profile Modal section, replace the default icon with the patient's profile picture -->
+                <div class="row mb-4">
+                    <div class="col-md-12 text-center mb-4">
+                        {% if patient_details and appointment.patient_email in patient_details and patient_details[appointment.patient_email].profile_pic %}
+                            <div style="width: 100px; height: 100px; border-radius: 50%; margin: 0 auto; overflow: hidden;">
+                                <img src="{{ url_for('static', filename=patient_details[appointment.patient_email].profile_pic.replace('static/', '')) }}"
+                                     alt="{{ appointment.patient_name }}"
+                                     style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        {% else %}
+                            <div style="width: 100px; height: 100px; background-color: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                                <i class="fas fa-user" style="font-size: 40px; color: var(--primary-color);"></i>
+                            </div>
+                        {% endif %}
+                        <h4 class="mt-3" style="font-weight: 600;">{{ appointment.patient_name }}</h4>
+                        <p style="color: var(--light-text);">{{ appointment.patient_email }}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Phone Number</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].phone if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">NID/Birth Certificate</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].nid_birth_certificate if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Age</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].age if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Gender</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].gender|capitalize if patient_details and appointment.patient_email in patient_details and patient_details[appointment.patient_email].gender else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Blood Group</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].blood_group if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Date of Birth</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].dob if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Emergency Contact</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].emergency_contact if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <div style="background-color: var(--secondary-color); padding: 15px; border-radius: 10px;">
+                            <div style="font-size: 0.9rem; color: var(--light-text); margin-bottom: 5px;">Address</div>
+                            <div style="font-weight: 500;">{{ patient_details[appointment.patient_email].address if patient_details and appointment.patient_email in patient_details else 'Not provided' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" style="background-color: var(--primary-color); color: var(--white);" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function showTab(tabName) {
+      // Hide all tabs
+      document.querySelectorAll('.tab-content').forEach(tab => {
+          tab.classList.remove('active');
+      });
+
+      // Remove active class from all tab buttons
+      document.querySelectorAll('.appointments-tab').forEach(tab => {
+          tab.classList.remove('active');
+      });
+
+      // Show the selected tab
+      document.getElementById(tabName + '-tab').classList.add('active');
+
+      // Add active class to the clicked tab button
+      event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>

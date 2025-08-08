@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Profile - PASMA</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+      :root {
+          --primary-color: #00a884;
+          --secondary-color: #e8f5f1;
+          --text-color: #333333;
+          --light-text: #666666;
+          --white: #ffffff;
+          --teal: #00a884;
+      }
+
+      body {
+          font-family: 'Poppins', sans-serif;
+          margin: 0;
+          padding: 0;
+          color: var(--text-color);
+          background-color: var(--white);
+      }
+
+      .logo {
+          width: 50px;
+          height: 50px;
+          margin-top: 0;
+          margin-left: 2px;
+      }
+
+      .myimg {
+          width: 50px;
+          height: 50px;
+          border: 2px solid var(--primary-color);
+          border-radius: 25px;
+      }
+
+      .navbar-custom {
+          background-color: var(--white) !important;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-custom .nav-link {
+          color: var(--text-color) !important;
+          font-weight: 500;
+      }
+
+      .navbar-custom .nav-link.active {
+          color: var(--primary-color) !important;
+      }
+
+      .profile-section {
+          padding: 80px 0;
+      }
+
+      .section-title {
+          font-size: 2.5rem;
+          color: var(--teal);
+          text-align: center;
+          margin-bottom: 50px;
+          font-weight: 600;
+      }
+
+      .profile-container {
+          background-color: var(--white);
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+          overflow: hidden;
+          margin: 0 auto;
+          max-width: 1000px;
+      }
+
+      .profile-header {
+          background-color: var(--secondary-color);
+          padding: 30px;
+          text-align: center;
+          position: relative;
+      }
+
+      .profile-avatar {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          border: 4px solid var(--white);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          margin: 0 auto 20px;
+          overflow: hidden;
+          background-color: var(--primary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+
+      .profile-avatar i {
+          font-size: 60px;
+          color: var(--white);
+      }
+
+      .profile-name {
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin-bottom: 5px;
+      }
+
+      .profile-email {
+          color: var(--light-text);
+          margin-bottom: 0;
+      }
+
+      .profile-specialty {
+          display: inline-block;
+          background-color: var(--primary-color);
+          color: var(--white);
+          padding: 5px 15px;
+          border-radius: 20px;
+          margin-top: 10px;
+          font-size: 0.9rem;
+      }
+
+      .profile-body {
+          padding: 30px;
+      }
+
+      .profile-info {
+          margin-bottom: 30px;
+      }
+
+      .info-title {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 20px;
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+      }
+
+      .info-title i {
+          margin-right: 10px;
+      }
+
+      .info-item {
+          margin-bottom: 15px;
+      }
+
+      .info-label {
+          font-weight: 500;
+          margin-bottom: 5px;
+          color: var(--light-text);
+      }
+
+      .info-value {
+          font-size: 1.1rem;
+          padding: 10px 15px;
+          background-color: var(--secondary-color);
+          border-radius: 8px;
+      }
+
+      .btn-edit {
+          background-color: var(--primary-color);
+          color: var(--white);
+          border: none;
+          padding: 10px 20px;
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+      }
+
+      .btn-edit:hover {
+          background-color: #008f6c;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .edit-form {
+          display: none;
+      }
+
+      .edit-form.active {
+          display: block;
+      }
+
+      .form-control {
+          margin-bottom: 15px;
+          border-radius: 8px;
+          padding: 12px 15px;
+          border: 1px solid #e0e0e0;
+      }
+
+      .form-control:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+      }
+
+      .dropdown-menu {
+          border: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+      }
+
+      .dropdown-item {
+          padding: 10px 20px;
+          transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+          background-color: var(--secondary-color);
+      }
+
+      .dropdown-item i {
+          margin-right: 10px;
+          color: var(--primary-color);
+      }
+
+      .profile-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--secondary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+      }
+
+      .profile-icon:hover {
+          background-color: var(--primary-color);
+      }
+
+      .profile-icon:hover i {
+          color: var(--white);
+      }
+
+      .profile-icon i {
+          color: var(--primary-color);
+          font-size: 1.2rem;
+      }
+
+      .document-container {
+          background-color: var(--secondary-color);
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+          margin-bottom: 15px;
+      }
+
+      .document-icon {
+          font-size: 2.5rem;
+          color: var(--primary-color);
+          margin-bottom: 10px;
+      }
+
+      .document-name {
+          font-size: 0.9rem;
+          margin-bottom: 10px;
+      }
+
+      .document-link {
+          color: var(--primary-color);
+          font-size: 0.9rem;
+          text-decoration: none;
+      }
+
+      .document-link:hover {
+          text-decoration: underline;
+      }
+
+      .time-slot-container {
+          background-color: var(--secondary-color);
+          padding: 15px;
+          border-radius: 8px;
+      }
+
+      .time-slot-day {
+          font-weight: 500;
+          margin-bottom: 5px;
+      }
+
+      .time-slot-time {
+          padding-left: 15px;
+          font-size: 0.9rem;
+          margin-bottom: 3px;
+      }
+
+      .appointment-card {
+          background-color: var(--secondary-color);
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 15px;
+          transition: all 0.3s ease;
+      }
+
+      .appointment-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .appointment-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+      }
+
+      .appointment-title {
+          font-weight: 600;
+          font-size: 1.1rem;
+          color: var(--primary-color);
+      }
+
+      .appointment-status {
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 500;
+      }
+
+      .status-upcoming {
+          background-color: #e8f5ff;
+          color: #0077cc;
+      }
+
+      .status-completed {
+          background-color: #e8f8e8;
+          color: #28a745;
+      }
+
+      .status-cancelled {
+          background-color: #ffeeee;
+          color: #dc3545;
+      }
+
+      .appointment-details {
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .appointment-detail {
+          flex: 1 1 50%;
+          margin-bottom: 10px;
+          min-width: 200px;
+      }
+
+      .detail-label {
+          font-size: 0.9rem;
+          color: var(--light-text);
+          margin-bottom: 3px;
+      }
+
+      .detail-value {
+          font-weight: 500;
+      }
+  </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <div class="logo">
+                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+            </div>
+            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA DOC</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('doctor_dashboard') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('doctor_appointments') }}">Appointments</a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('doctor_profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('doctor_settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('doctor_logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+  <!-- Profile Section -->
+  <section class="profile-section">
+      <div class="container">
+          <h1 class="section-title">Doctor Profile</h1>
+
+          <div class="profile-container">
+              <div class="profile-header">
+                  <div class="profile-avatar">
+                        {% if doctor_details.profile_pic %}
+                            <img src="{{ url_for('static', filename=doctor_details.profile_pic.replace('static/', '')) }}" alt="{{ doctor_details.name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <i class="fas fa-user-md"></i>
+                        {% endif %}
+                  </div>
+                  <h2 class="profile-name">{{ doctor_details.name }}</h2>
+                  <p class="profile-email">{{ doctor_details.email }}</p>
+                  {% if doctor_details.specialization %}
+                  <div class="profile-specialty">{{ doctor_details.specialization }}</div>
+                  {% endif %}
+              </div>
+
+              <div class="profile-body">
+                  <!-- Basic Information -->
+                  <div class="profile-info">
+                      <h3 class="info-title"><i class="fas fa-user"></i> Basic Information</h3>
+
+                      <div id="personalInfoDisplay">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Full Name</div>
+                                      <div class="info-value">{{ doctor_details.name }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Gender</div>
+                                      <div class="info-value">{{ doctor_details.gender|capitalize if doctor_details.gender else 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Email Address</div>
+                                      <div class="info-value">{{ doctor_details.email }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Phone Number</div>
+                                      <div class="info-value">{{ doctor_details.phone or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">NID/Birth Certificate Number</div>
+                                      <div class="info-value">{{ doctor_details.nid or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Age</div>
+                                      <div class="info-value">{{ doctor_details.age or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Date of Birth</div>
+                                      <div class="info-value">{{ doctor_details.dob or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <button class="btn-edit mt-3" onclick="toggleEditForm('personalInfoForm')">
+                              <i class="fas fa-edit me-2"></i> Edit Information
+                          </button>
+                      </div>
+
+                      <div id="personalInfoForm" class="edit-form">
+                          <form action="{{ url_for('update_doctor_profile') }}" method="POST">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="name">Full Name</label>
+                                          <input type="text" class="form-control" id="name" name="name" value="{{ doctor_details.name }}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="gender">Gender</label>
+                                          <select class="form-control" id="gender" name="gender">
+                                                <option value="" {% if not doctor_details.gender %}selected{% endif %}>Select Gender</option>
+                                                <option value="male" {% if doctor_details.gender == 'male' %}selected{% endif %}>Male</option>
+                                                <option value="female" {% if doctor_details.gender == 'female' %}selected{% endif %}>Female</option>
+                                                <option value="other" {% if doctor_details.gender == 'other' %}selected{% endif %}>Other</option>
+                                                <option value="prefer-not-to-say" {% if doctor_details.gender == 'prefer-not-to-say' %}selected{% endif %}>Prefer not to say</option>
+                                            </select>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="phone">Phone Number</label>
+                                          <input type="text" class="form-control" id="phone" name="phone" value="{{ doctor_details.phone or '' }}">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="age">Age</label>
+                                          <input type="number" class="form-control" id="age" name="age" value="{{ doctor_details.age or '' }}" min="1" max="120">
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="dob">Date of Birth</label>
+                                          <input type="date" class="form-control" id="dob" name="dob" value="{{ doctor_details.dob or '' }}">
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="mt-3">
+                                  <button type="submit" class="btn-edit me-2">
+                                      <i class="fas fa-save me-2"></i> Save Changes
+                                  </button>
+                                  <button type="button" class="btn btn-secondary" onclick="toggleEditForm('personalInfoForm')">
+                                      Cancel
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+
+                  <!-- Professional Information -->
+                  <div class="profile-info">
+                      <h3 class="info-title"><i class="fas fa-stethoscope"></i> Professional Information</h3>
+
+                      <div id="professionalInfoDisplay">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Specialization</div>
+                                      <div class="info-value">{{ doctor_details.specialization or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Medical License/Registration Number</div>
+                                      <div class="info-value">{{ doctor_details.license or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Years of Experience</div>
+                                      <div class="info-value">{{ doctor_details.experience + ' years' if doctor_details.experience else 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Consultation Fee</div>
+                                      <div class="info-value">${{ doctor_details.fee if doctor_details.fee else 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Affiliated Hospital/Clinic</div>
+                                      <div class="info-value">{{ doctor_details.hospital or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          {% if doctor_details.timeSlots and doctor_details.timeSlots|length > 0 %}
+                          <div class="mt-4">
+                              <div class="info-label">Available Time Slots</div>
+                              <div class="time-slot-container">
+                                  {% for slot in doctor_details.timeSlots %}
+                                  <div class="mb-3">
+                                      <div class="time-slot-day">{{ slot.day }}:</div>
+                                      {% for time in slot.slots %}
+                                      <div class="time-slot-time">{{ time }}</div>
+                                      {% endfor %}
+                                  </div>
+                                  {% endfor %}
+                              </div>
+                          </div>
+                          {% endif %}
+
+                          <button class="btn-edit mt-3" onclick="toggleEditForm('professionalInfoForm')">
+                              <i class="fas fa-edit me-2"></i> Edit Information
+                          </button>
+                      </div>
+
+                      <div id="professionalInfoForm" class="edit-form">
+    <form action="{{ url_for('update_doctor_professional') }}" method="POST">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="specialization">Specialization</label>
+                    <select class="form-control" id="specialization" name="specialization" multiple>
+                        <option value="Cardiology" {% if doctor_details.specialization and 'Cardiology' in doctor_details.specialization.split(',') %}selected{% endif %}>Cardiology</option>
+                        <option value="Dermatology" {% if doctor_details.specialization and 'Dermatology' in doctor_details.specialization.split(',') %}selected{% endif %}>Dermatology</option>
+                        <option value="Neurology" {% if doctor_details.specialization and 'Neurology' in doctor_details.specialization.split(',') %}selected{% endif %}>Neurology</option>
+                        <option value="Orthopedics" {% if doctor_details.specialization and 'Orthopedics' in doctor_details.specialization.split(',') %}selected{% endif %}>Orthopedics</option>
+                        <option value="Pediatrics" {% if doctor_details.specialization and 'Pediatrics' in doctor_details.specialization.split(',') %}selected{% endif %}>Pediatrics</option>
+                        <option value="Psychiatry" {% if doctor_details.specialization and 'Psychiatry' in doctor_details.specialization.split(',') %}selected{% endif %}>Psychiatry</option>
+                        <option value="Gynecology" {% if doctor_details.specialization and 'Gynecology' in doctor_details.specialization.split(',') %}selected{% endif %}>Gynecology</option>
+                        <option value="Ophthalmology" {% if doctor_details.specialization and 'Ophthalmology' in doctor_details.specialization.split(',') %}selected{% endif %}>Ophthalmology</option>
+                        <option value="ENT" {% if doctor_details.specialization and 'ENT' in doctor_details.specialization.split(',') %}selected{% endif %}>ENT</option>
+                        <option value="General Medicine" {% if doctor_details.specialization and 'General Medicine' in doctor_details.specialization.split(',') %}selected{% endif %}>General Medicine</option>
+                    </select>
+                    <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple specializations</small>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="license">Medical License/Registration Number</label>
+                    <input type="text" class="form-control" id="license" name="license" value="{{ doctor_details.license or '' }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="experience">Years of Experience</label>
+                    <input type="number" class="form-control" id="experience" name="experience" value="{{ doctor_details.experience or '' }}" min="0">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="fee">Consultation Fee</label>
+                    <input type="number" class="form-control" id="fee" name="fee" value="{{ doctor_details.fee or '' }}" min="0">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="hospital">Affiliated Hospital/Clinic</label>
+                    <input type="text" class="form-control" id="hospital" name="hospital" value="{{ doctor_details.hospital or '' }}">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <label>Available Time Slots</label>
+            <div class="time-slot-container p-3">
+                <div class="row">
+                    <!-- Monday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Monday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="monday-morning" id="monday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Monday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="monday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="monday-afternoon" id="monday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Monday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="monday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Tuesday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Tuesday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="tuesday-morning" id="tuesday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Tuesday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="tuesday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="tuesday-afternoon" id="tuesday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Tuesday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="tuesday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Wednesday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Wednesday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="wednesday-morning" id="wednesday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Wednesday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="wednesday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="wednesday-afternoon" id="wednesday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Wednesday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="wednesday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Thursday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Thursday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="thursday-morning" id="thursday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Thursday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="thursday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="thursday-afternoon" id="thursday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Thursday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="thursday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Friday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Friday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="friday-morning" id="friday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Friday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="friday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="friday-afternoon" id="friday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Friday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="friday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Saturday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Saturday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="saturday-morning" id="saturday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Saturday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="saturday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="saturday-afternoon" id="saturday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Saturday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="saturday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Sunday -->
+                    <div class="col-md-6 mb-3">
+                        <div class="time-slot-day">Sunday:</div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="sunday-morning" id="sunday-morning"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Sunday' and '09:00 AM - 12:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="sunday-morning">
+                                Morning (09:00 AM - 12:00 PM)
+                            </label>
+                        </div>
+                        <div class="form-check ms-3">
+                            <input class="form-check-input" type="checkbox" name="timeSlots" value="sunday-afternoon" id="sunday-afternoon"
+                                {% for slot in doctor_details.timeSlots %}
+                                    {% if slot.day == 'Sunday' and '02:00 PM - 05:00 PM' in slot.slots %}
+                                        checked
+                                    {% endif %}
+                                {% endfor %}
+                            >
+                            <label class="form-check-label" for="sunday-afternoon">
+                                Afternoon (02:00 PM - 05:00 PM)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn-edit me-2">
+                <i class="fas fa-save me-2"></i> Save Changes
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="toggleEditForm('professionalInfoForm')">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>
+                  </div>
+
+                  <!-- Verification & Documents -->
+                  <div class="profile-info">
+                      <h3 class="info-title"><i class="fas fa-file-alt"></i> Verification & Documents</h3>
+
+                      <div class="row">
+                          <div class="col-md-4">
+                              <div class="document-container">
+                                  <div class="document-icon">
+                                      <i class="fas fa-file-pdf"></i>
+                                  </div>
+                                  <div class="document-name">Medical License/Certificate</div>
+                                  <a href="#" class="document-link">View Document</a>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="document-container">
+                                  <div class="document-icon">
+                                      <i class="fas fa-user-md"></i>
+                                  </div>
+                                  <div class="document-name">Profile Picture</div>
+                                  <a href="#" class="document-link">Update Photo</a>
+                              </div>
+                          </div>
+                          <div class="col-md-4">
+                              <div class="document-container">
+                                  <div class="document-icon">
+                                      <i class="fas fa-id-card"></i>
+                                  </div>
+                                  <div class="document-name">National ID/Passport</div>
+                                  <a href="#" class="document-link">View Document</a>
+                              </div>
+                          </div>
+                      </div>
+
+                      <form action="{{ url_for('upload_doctor_documents') }}" method="POST" enctype="multipart/form-data" class="mt-4">
+                          <div class="row">
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="license-doc">Upload Medical License</label>
+                                      <input type="file" class="form-control" id="license-doc" name="license_doc" accept=".pdf,.jpg,.jpeg,.png">
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="profile-pic">Upload Profile Picture</label>
+                                      <input type="file" class="form-control" id="profile-pic" name="profile_pic" accept=".jpg,.jpeg,.png">
+                                  </div>
+                              </div>
+                              <div class="col-md-4">
+                                  <div class="form-group">
+                                      <label for="id-doc">Upload ID Document</label>
+                                      <input type="file" class="form-control" id="id-doc" name="id_doc" accept=".pdf,.jpg,.jpeg,.png">
+                                  </div>
+                              </div>
+                          </div>
+                          <button type="submit" class="btn-edit mt-3">
+                              <i class="fas fa-upload me-2"></i> Upload Documents
+                          </button>
+                      </form>
+                  </div>
+
+                  <!-- Additional Information -->
+                  <div class="profile-info">
+                      <h3 class="info-title"><i class="fas fa-info-circle"></i> Additional Information</h3>
+
+                      <div id="additionalInfoDisplay">
+                          <div class="mb-4">
+                              <div class="info-label">Biography/About Me</div>
+                              <div class="info-value">{{ doctor_details.bio or 'Not provided' }}</div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Languages Spoken</div>
+                                      <div class="info-value">{{ doctor_details.languages or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <div class="info-item">
+                                      <div class="info-label">Address (for in-person appointments)</div>
+                                      <div class="info-value">{{ doctor_details.address or 'Not provided' }}</div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <button class="btn-edit mt-3" onclick="toggleEditForm('additionalInfoForm')">
+                              <i class="fas fa-edit me-2"></i> Edit Information
+                          </button>
+                      </div>
+
+                      <!-- Replace the additionalInfoForm div with this updated version that matches your UI design -->
+                      <div id="additionalInfoForm" class="edit-form">
+                          <form action="{{ url_for('update_doctor_additional') }}" method="POST">
+                              <div class="form-group">
+                                  <label for="bio">Biography/About Me</label>
+                                  <textarea class="form-control" id="bio" name="bio" rows="4">{{ doctor_details.bio or '' }}</textarea>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="languages">Languages Spoken</label>
+                                          <select class="form-control" id="languages" name="languages" multiple>
+                                              <option value="English" {% if doctor_details.languages and 'English' in doctor_details.languages.split(',') %}selected{% endif %}>English</option>
+                                              <option value="Spanish" {% if doctor_details.languages and 'Spanish' in doctor_details.languages.split(',') %}selected{% endif %}>Spanish</option>
+                                              <option value="French" {% if doctor_details.languages and 'French' in doctor_details.languages.split(',') %}selected{% endif %}>French</option>
+                                              <option value="German" {% if doctor_details.languages and 'German' in doctor_details.languages.split(',') %}selected{% endif %}>German</option>
+                                              <option value="Chinese" {% if doctor_details.languages and 'Chinese' in doctor_details.languages.split(',') %}selected{% endif %}>Chinese</option>
+                                              <option value="Hindi" {% if doctor_details.languages and 'Hindi' in doctor_details.languages.split(',') %}selected{% endif %}>Hindi</option>
+                                              <option value="Arabic" {% if doctor_details.languages and 'Arabic' in doctor_details.languages.split(',') %}selected{% endif %}>Arabic</option>
+                                              <option value="Bengali" {% if doctor_details.languages and 'Bengali' in doctor_details.languages.split(',') %}selected{% endif %}>Bengali</option>
+                                              <option value="Russian" {% if doctor_details.languages and 'Russian' in doctor_details.languages.split(',') %}selected{% endif %}>Russian</option>
+                                              <option value="Portuguese" {% if doctor_details.languages and 'Portuguese' in doctor_details.languages.split(',') %}selected{% endif %}>Portuguese</option>
+                                              <option value="Japanese" {% if doctor_details.languages and 'Japanese' in doctor_details.languages.split(',') %}selected{% endif %}>Japanese</option>
+                                          </select>
+                                          <small class="text-muted">Hold Ctrl (or Cmd on Mac) to select multiple languages</small>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label for="address">Address (for in-person appointments)</label>
+                                          <input type="text" class="form-control" id="address" name="address" value="{{ doctor_details.address or '' }}">
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="mt-3">
+                                  <button type="submit" class="btn-edit me-2">
+                                      <i class="fas fa-save me-2"></i> Save Changes
+                                  </button>
+                                  <button type="button" class="btn btn-secondary" onclick="toggleEditForm('additionalInfoForm')">
+                                      Cancel
+                                  </button>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+      function toggleEditForm(formId) {
+          const form = document.getElementById(formId);
+          const displayId = formId.replace('Form', 'Display');
+          const display = document.getElementById(displayId);
+
+          if (form.classList.contains('active')) {
+              form.classList.remove('active');
+              display.style.display = 'block';
+          } else {
+              form.classList.add('active');
+              display.style.display = 'none';
+          }
+      }
+  </script>
+</body>
+</html>
+
