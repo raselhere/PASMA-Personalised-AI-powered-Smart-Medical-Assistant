@@ -237,55 +237,147 @@
                 height: 350px;
             }
         }
+
+         /* Navigation Styles */
+      .navbar-custom {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-light);
+        transition: all 0.3s ease;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .navbar-custom.scrolled {
+        padding: 10px 0;
+        box-shadow: var(--shadow-medium);
+        background: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      .navbar-custom .nav-link {
+        color: var(--text-color) !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        margin: 0 10px;
+      }
+
+      .navbar-custom .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .navbar-custom .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .navbar-custom .nav-link:hover {
+        color: var(--primary-color) !important;
+      }
+
+      .navbar-brand {
+        font-weight: 800 !important;
+        font-size: 1.8rem !important;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+      }
+
+      .logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .logo::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .logo:hover::after {
+        opacity: 0.2;
+      }
+
+      .logo:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .myimg {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--primary-color);
+        border-radius: 25px;
+        box-shadow: var(--shadow-light);
+      }
     </style>
 </head>
 <body>
 
-     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
-        <div class="container">
-            <div class="logo">
-                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
-            </div>
-            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url_for('contact') }}">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('purchase') }}">Purchase</a>
-                    </li>
-                    <!-- Profile Dropdown -->
-                    <li class="nav-item dropdown">
-                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            {% if profile_picture %}
-                                <img src="{{ url_for('static', filename=profile_picture.replace('static/', '')) }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
-                            {% else %}
-                                <i class="fas fa-user"></i>
-                            {% endif %}
-                        </div>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('patient_appointment') }}"><i class="fas fa-calendar-check"></i> Appointments</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+    <div class="container">
+      <div class="d-flex align-items-center">
+      <div class="logo">
+        <img class="myimg" src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
+      </div>
+        <a class="navbar-brand">PASMA</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('landing') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+          </li>
+          <li class="nav-item dropdown me-2">
+            <a class="auth-btn login-btn dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Login
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('login') }}">Login as Patient</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('doctor_login') }}">Login as Doctor</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="auth-btn signup-btn dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sign Up
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('signup') }}">Sign Up as Patient</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('doctor_signup') }}">Sign Up as Doctor</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
 <!-- Contact Section -->
 <section class="contact-section">
