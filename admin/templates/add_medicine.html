@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Medicine - PASMA Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center mb-4">
+    <a href="{{ url_for('medicines') }}" class="btn btn-outline-primary me-3">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1 class="section-title mb-0">Add New Medicine</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form action="{{ url_for('add_medicine') }}" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Medicine Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="Pain Relief">Pain Relief</option>
+                            <option value="Antibiotics">Antibiotics</option>
+                            <option value="Cardiac Care">Cardiac Care</option>
+                            <option value="Diabetes Care">Diabetes Care</option>
+                            <option value="Vitamins & Supplements">Vitamins & Supplements</option>
+                            <option value="Skin Care">Skin Care</option>
+                            <option value="Fever & Cold">Fever & Cold</option>
+                            <option value="Digestive Health">Digestive Health</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price ($)</label>
+                        <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Stock Quantity</label>
+                        <input type="number" class="form-control" id="stock" name="stock" min="0" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="company" class="form-label">Company/Manufacturer</label>
+                        <input type="text" class="form-control" id="company" name="company" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Medicine Image</label>
+                        <input type="file" class="form-control" id="image" name="image" accept=".jpg,.jpeg,.png">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{{ url_for('medicines') }}" class="btn btn-secondary me-2">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i> Save Medicine
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

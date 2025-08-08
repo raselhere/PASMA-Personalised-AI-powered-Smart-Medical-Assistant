@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Appointments - PASMA</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- FullCalendar CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet">
+  <!-- Toastr CSS for notifications -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+  <style>
+      :root {
+          --primary-color: #00a884;
+          --secondary-color: #e8f5f1;
+          --text-color: #333333;
+          --light-text: #666666;
+          --white: #ffffff;
+          --teal: #00a884;
+      }
+
+      body {
+          font-family: 'Poppins', sans-serif;
+          margin: 0;
+          padding: 0;
+          color: var(--text-color);
+          background-color: var(--white);
+      }
+
+      .logo {
+          width: 50px;
+          height: 50px;
+          margin-top: 0;
+          margin-left: 2px;
+      }
+
+      .myimg {
+          width: 50px;
+          height: 50px;
+          border: 2px solid var(--primary-color);
+          border-radius: 25px;
+      }
+
+      .navbar-custom {
+          background-color: var(--white) !important;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-custom .nav-link {
+          color: var(--text-color) !important;
+          font-weight: 500;
+      }
+
+      .navbar-custom .nav-link.active {
+          color: var(--primary-color) !important;
+      }
+
+      .appointment-section {
+          padding: 80px 0;
+      }
+
+      .section-title {
+          font-size: 2.5rem;
+          color: var(--teal);
+          text-align: center;
+          margin-bottom: 50px;
+          font-weight: 600;
+      }
+
+      .appointment-container {
+          background-color: var(--white);
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+          overflow: hidden;
+          margin: 0 auto;
+          max-width: 1000px;
+      }
+
+      .appointment-header {
+          background-color: var(--secondary-color);
+          padding: 30px;
+          text-align: center;
+          position: relative;
+      }
+
+      .appointment-title {
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin-bottom: 5px;
+          color: var(--primary-color);
+      }
+
+      .appointment-subtitle {
+          color: var(--light-text);
+          margin-bottom: 0;
+      }
+
+      .appointment-body {
+          padding: 30px;
+      }
+
+      .info-title {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 20px;
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+      }
+
+      .info-title i {
+          margin-right: 10px;
+      }
+
+      .btn-new-appointment {
+          background-color: var(--primary-color);
+          color: var(--white);
+          border: none;
+          padding: 12px 25px;
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 15px;
+          text-decoration: none;
+      }
+
+      .btn-new-appointment i {
+          margin-right: 8px;
+      }
+
+      .btn-new-appointment:hover {
+          background-color: #008f6c;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          color: var(--white);
+          text-decoration: none;
+      }
+
+      /* Calendar Styles */
+      .calendar-container {
+          margin-top: 30px;
+          margin-bottom: 30px;
+      }
+
+      .fc-theme-standard .fc-scrollgrid {
+          border: 1px solid #e0e0e0;
+      }
+
+      .fc .fc-toolbar-title {
+          font-size: 1.5rem;
+          color: var(--primary-color);
+      }
+
+      .fc .fc-button-primary {
+          background-color: var(--primary-color);
+          border-color: var(--primary-color);
+      }
+
+      .fc .fc-button-primary:hover {
+          background-color: #008f6c;
+          border-color: #008f6c;
+      }
+
+      .fc .fc-daygrid-day.fc-day-today {
+          background-color: var(--secondary-color);
+      }
+
+      .fc-event {
+          background-color: var(--primary-color);
+          border-color: var(--primary-color);
+          cursor: pointer;
+      }
+
+      /* Appointment Card Styles */
+      .appointment-card {
+          background-color: var(--secondary-color);
+          border-radius: 10px;
+          padding: 20px;
+          margin-bottom: 15px;
+          transition: all 0.3s ease;
+      }
+
+      .appointment-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .appointment-card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 15px;
+      }
+
+      .appointment-card-title {
+          font-weight: 600;
+          font-size: 1.1rem;
+          color: var(--primary-color);
+      }
+
+      .appointment-status {
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 500;
+      }
+
+      .status-upcoming {
+          background-color: #e8f5ff;
+          color: #0077cc;
+      }
+
+      .status-completed {
+          background-color: #e8f8e8;
+          color: #28a745;
+      }
+
+      .status-cancelled {
+          background-color: #ffeeee;
+          color: #dc3545;
+      }
+
+      .appointment-details {
+          display: flex;
+          flex-wrap: wrap;
+      }
+
+      .appointment-detail {
+          flex: 1 1 50%;
+          margin-bottom: 10px;
+          min-width: 200px;
+      }
+
+      .detail-label {
+          font-size: 0.9rem;
+          color: var(--light-text);
+          margin-bottom: 3px;
+      }
+
+      .detail-value {
+          font-weight: 500;
+      }
+
+      .no-appointments-message {
+          text-align: center;
+          padding: 30px;
+          background-color: var(--secondary-color);
+          border-radius: 8px;
+          margin: 30px 0;
+          font-size: 1.1rem;
+      }
+
+      .tab-content {
+          margin-top: 20px;
+      }
+
+      .nav-tabs .nav-link {
+          color: var(--light-text);
+          font-weight: 500;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 0;
+          margin-right: 5px;
+      }
+
+      .nav-tabs .nav-link.active {
+          color: var(--primary-color);
+          border-bottom: 2px solid var(--primary-color);
+          background-color: transparent;
+      }
+
+      .nav-tabs .nav-link:hover {
+          border-color: transparent;
+          color: var(--primary-color);
+      }
+
+      .dropdown-menu {
+          border: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+      }
+
+      .dropdown-item {
+          padding: 10px 20px;
+          transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+          background-color: var(--secondary-color);
+      }
+
+      .dropdown-item i {
+          margin-right: 10px;
+          color: var(--primary-color);
+      }
+
+      .profile-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--secondary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+      }
+
+      .profile-icon:hover {
+          background-color: var(--primary-color);
+      }
+
+      .profile-icon:hover i {
+          color: var(--white);
+      }
+
+      .profile-icon i {
+          color: var(--primary-color);
+          font-size: 1.2rem;
+      }
+
+      /* New styles for added features */
+      .filter-container {
+          display: flex;
+          gap: 10px;
+          margin-bottom: 20px;
+          flex-wrap: wrap;
+      }
+
+      .filter-btn {
+          padding: 8px 15px;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: 1px solid #e0e0e0;
+          background-color: var(--white);
+      }
+
+      .filter-btn.active {
+          background-color: var(--primary-color);
+          color: var(--white);
+          border-color: var(--primary-color);
+      }
+
+      .search-container {
+          margin-bottom: 20px;
+          position: relative;
+      }
+
+      .search-input {
+          width: 100%;
+          padding: 10px 15px 10px 40px;
+          border-radius: 8px;
+          border: 1px solid #e0e0e0;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+      }
+
+      .search-input:focus {
+          outline: none;
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+      }
+
+      .search-icon {
+          position: absolute;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--light-text);
+      }
+
+      .action-buttons {
+          display: flex;
+          gap: 10px;
+          margin-top: 15px;
+      }
+
+      .action-btn {
+          padding: 8px 15px;
+          border-radius: 5px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+      }
+
+      .action-btn i {
+          margin-right: 5px;
+      }
+
+      .btn-primary-outline {
+          border: 1px solid var(--primary-color);
+          color: var(--primary-color);
+          background-color: transparent;
+      }
+
+      .btn-primary-outline:hover {
+          background-color: var(--primary-color);
+          color: var(--white);
+      }
+
+      .medication-container {
+          margin-top: 20px;
+          padding: 15px;
+          border-radius: 8px;
+          background-color: #f9f9f9;
+      }
+
+      .medication-item {
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          border-radius: 5px;
+          background-color: var(--white);
+          margin-bottom: 10px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .medication-info {
+          flex: 1;
+      }
+
+      .medication-name {
+          font-weight: 600;
+          margin-bottom: 3px;
+      }
+
+      .medication-schedule {
+          font-size: 0.85rem;
+          color: var(--light-text);
+      }
+
+      .medication-actions {
+          display: flex;
+          gap: 10px;
+      }
+
+      .modal-header {
+          background-color: var(--secondary-color);
+      }
+
+      .modal-title {
+          color: var(--primary-color);
+          font-weight: 600;
+      }
+
+      .form-label {
+          font-weight: 500;
+          color: var(--text-color);
+      }
+
+      .form-control:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+      }
+
+      .btn-modal-submit {
+          background-color: var(--primary-color);
+          color: var(--white);
+          border: none;
+      }
+
+      .btn-modal-submit:hover {
+          background-color: #008f6c;
+      }
+
+      .feedback-stars {
+          display: flex;
+          gap: 5px;
+          margin: 10px 0;
+      }
+
+      .star {
+          font-size: 1.5rem;
+          color: #e0e0e0;
+          cursor: pointer;
+          transition: all 0.2s ease;
+      }
+
+      .star.active {
+          color: #ffc107;
+      }
+
+      .star:hover {
+          transform: scale(1.2);
+      }
+
+      .badge-pill {
+          padding: 5px 10px;
+          border-radius: 20px;
+          font-size: 0.8rem;
+          font-weight: 500;
+          margin-left: 10px;
+      }
+
+      .badge-primary {
+          background-color: var(--primary-color);
+          color: var(--white);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+          .appointment-card-header {
+              flex-direction: column;
+              align-items: flex-start;
+          }
+
+          .appointment-status {
+              margin-top: 10px;
+          }
+
+          .action-buttons {
+              flex-wrap: wrap;
+          }
+
+          .filter-container {
+              justify-content: center;
+          }
+      }
+  </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <div class="logo">
+                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+            </div>
+            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('purchase') }}">Purchase</a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if profile_picture %}
+                                <img src="{{ url_for('static', filename=profile_picture.replace('static/', '')) }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('patient_appointment') }}"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<!-- Add this right after the navigation bar section and before the appointment section -->
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="container mt-3">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category if category != 'error' else 'danger' }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+  <!-- Appointment Section -->
+  <section class="appointment-section">
+      <div class="container">
+          <h1 class="section-title">My Appointments</h1>
+
+          <div class="appointment-container">
+              <div class="appointment-header">
+                  <h2 class="appointment-title">Manage Your Appointments</h2>
+                  <p class="appointment-subtitle">View, schedule, and manage your medical appointments</p>
+              </div>
+
+              <div class="appointment-body">
+                  <!-- Action Button -->
+                  <div class="d-flex justify-content-between mb-4 flex-wrap">
+                      <button class="btn-new-appointment" data-bs-toggle="modal" data-bs-target="#medicationModal">
+                          <i class="fas fa-pills"></i> Manage Medications
+                      </button>
+                      <a href="{{ url_for('new_appointment') }}" class="btn-new-appointment">
+                          <i class="fas fa-plus-circle"></i> Make New Appointment
+                      </a>
+                  </div>
+
+                  <!-- Tabs -->
+                  <ul class="nav nav-tabs" id="appointmentTabs" role="tablist">
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="list-tab" data-bs-toggle="tab" data-bs-target="#list" type="button" role="tab" aria-controls="list" aria-selected="false">
+                              <i class="fas fa-list me-2"></i>List View
+                          </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="true">
+                              <i class="fas fa-calendar-alt me-2"></i>Calendar
+                          </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="medications-tab" data-bs-toggle="tab" data-bs-target="#medications" type="button" role="tab" aria-controls="medications" aria-selected="false">
+                              <i class="fas fa-pills me-2"></i>Medications
+                          </button>
+                      </li>
+                  </ul>
+
+                  <!-- Tab Content -->
+                  <div class="tab-content" id="appointmentTabsContent">
+                      <!-- Calendar View -->
+                      <div class="tab-pane fade show active" id="calendar" role="tabpanel" aria-labelledby="calendar-tab">
+                          <div class="calendar-container">
+                              <div id="appointmentCalendar"></div>
+                          </div>
+                      </div>
+
+                      <!-- List View -->
+                      <div class="tab-pane fade" id="list" role="tabpanel" aria-labelledby="list-tab">
+                          <!-- Search and Filter -->
+                          <div class="search-container">
+                              <i class="fas fa-search search-icon"></i>
+                              <input type="text" class="search-input" id="appointmentSearch" placeholder="Search appointments...">
+                          </div>
+
+                          <div class="filter-container">
+                              <button class="filter-btn active" data-filter="all">All</button>
+                              <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+                              <button class="filter-btn" data-filter="completed">Completed</button>
+                              <button class="filter-btn" data-filter="cancelled">Cancelled</button>
+                          </div>
+
+                          {% if user_details.appointments and user_details.appointments|length > 0 %}
+                              <div class="appointments-container" id="appointmentsList">
+                                  {% for appointment in user_details.appointments|sort(attribute='date')|reverse %}
+                                      <div class="appointment-card" data-status="{{ appointment.status|lower }}">
+                                          <div class="appointment-card-header">
+                                              <div class="appointment-card-title">Appointment with Dr. {{ appointment.doctor_name }}</div>
+                                              <div class="appointment-status status-{{ appointment.status|lower }}">{{ appointment.status }}</div>
+                                          </div>
+                                          <div class="appointment-details">
+                                              <div class="appointment-detail">
+                                                  <div class="detail-label">Date</div>
+                                                  <div class="detail-value">{{ appointment.date }}</div>
+                                              </div>
+                                              <div class="appointment-detail">
+                                                  <div class="detail-label">Time</div>
+                                                  <div class="detail-value">{{ appointment.time }}</div>
+                                              </div>
+                                              <div class="appointment-detail">
+                                                  <div class="detail-label">Department</div>
+                                                  <div class="detail-value">{{ appointment.department }}</div>
+                                              </div>
+                                              <div class="appointment-detail">
+                                                  <div class="detail-label">Purpose</div>
+                                                  <div class="detail-value">{{ appointment.purpose }}</div>
+                                              </div>
+                                              {% if appointment.notes %}
+                                              <div class="appointment-detail">
+                                                  <div class="detail-label">Notes</div>
+                                                  <div class="detail-value">{{ appointment.notes }}</div>
+                                              </div>
+                                              {% endif %}
+                                          </div>
+
+                                          <!-- Action Buttons -->
+                                          <div class="action-buttons">
+                                              <button class="action-btn btn-primary-outline" onclick="printAppointment(this)">
+                                                  <i class="fas fa-print"></i> Print
+                                              </button>
+                                              <button class="action-btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#notesModal"
+                                                      data-appointment-id="{{ appointment.id }}"
+                                                      data-doctor="{{ appointment.doctor_name }}"
+                                                      data-date="{{ appointment.date }}"
+                                                      data-time="{{ appointment.time }}"
+                                                      data-notes="{{ appointment.notes }}">
+                                                  <i class="fas fa-sticky-note"></i> Add Notes
+                                              </button>
+                                              {% if appointment.status == 'Completed' %}
+                                              <button class="action-btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#feedbackModal"
+                                                      data-appointment-id="{{ appointment.id }}"
+                                                      data-doctor="{{ appointment.doctor_name }}">
+                                                  <i class="fas fa-star"></i> Leave Feedback
+                                              </button>
+                                              {% endif %}
+                                              {% if appointment.status == 'Upcoming' %}
+                                              <button class="action-btn btn-primary-outline" data-bs-toggle="modal" data-bs-target="#rescheduleModal"
+                                                      data-appointment-id="{{ appointment.id }}"
+                                                      data-doctor="{{ appointment.doctor_name }}"
+                                                      data-date="{{ appointment.date }}"
+                                                      data-time="{{ appointment.time }}">
+                                                  <i class="fas fa-calendar-alt"></i> Reschedule
+                                              </button>
+                                              <button class="action-btn btn-primary-outline text-danger" onclick="cancelAppointment('{{ appointment.id }}')">
+                                                  <i class="fas fa-times-circle"></i> Cancel
+                                              </button>
+                                              {% endif %}
+                                          </div>
+                                      </div>
+                                  {% endfor %}
+                              </div>
+                          {% else %}
+                              <div class="no-appointments-message">
+                                  <i class="fas fa-info-circle me-2"></i> You don't have any appointments yet.
+                              </div>
+                          {% endif %}
+                      </div>
+
+                      <!-- Medications Tab -->
+                      <div class="tab-pane fade" id="medications" role="tabpanel" aria-labelledby="medications-tab">
+                          <div class="d-flex justify-content-between align-items-center mb-4">
+                              <h4 class="info-title mb-0"><i class="fas fa-pills"></i> My Medications</h4>
+                              <button class="btn-new-appointment" data-bs-toggle="modal" data-bs-target="#addMedicationModal">
+                                  <i class="fas fa-plus-circle"></i> Add Medication
+                              </button>
+                          </div>
+
+                          <div id="medicationsList">
+                              <!-- Medications will be loaded here via JavaScript -->
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Add Notes Modal -->
+  <div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="notesModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="notesModalLabel">Add Notes for Appointment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="notesForm" action="{{ url_for('add_appointment_notes') }}" method="post">
+                      <input type="hidden" id="notesAppointmentId" name="appointment_id">
+                      <div class="mb-3">
+                          <label for="appointmentDetails" class="form-label">Appointment Details</label>
+                          <p id="appointmentDetails" class="form-text"></p>
+                      </div>
+                      <div class="mb-3">
+                          <label for="notes" class="form-label">Your Notes</label>
+                          <textarea class="form-control" id="notes" name="notes" rows="4" placeholder="Add your notes about this appointment..."></textarea>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-modal-submit">Save Notes</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div class="modal fade" id="feedbackModal" tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="feedbackModalLabel">Leave Feedback</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="feedbackForm" action="{{ url_for('add_appointment_feedback') }}" method="post">
+                  action="{{ url_for('add_appointment_feedback') }}" method="post">
+                      <input type="hidden" id="feedbackAppointmentId" name="appointment_id">
+                      <div class="mb-3">
+                          <label for="doctorName" class="form-label">Doctor</label>
+                          <p id="doctorName" class="form-text"></p>
+                      </div>
+                      <div class="mb-3">
+                          <label for="rating" class="form-label">Rating</label>
+                          <div class="feedback-stars" id="ratingStars">
+                              <span class="star" data-rating="1"><i class="fas fa-star"></i></span>
+                              <span class="star" data-rating="2"><i class="fas fa-star"></i></span>
+                              <span class="star" data-rating="3"><i class="fas fa-star"></i></span>
+                              <span class="star" data-rating="4"><i class="fas fa-star"></i></span>
+                              <span class="star" data-rating="5"><i class="fas fa-star"></i></span>
+                          </div>
+                          <input type="hidden" id="rating" name="rating" value="0">
+                      </div>
+                      <div class="mb-3">
+                          <label for="feedback" class="form-label">Your Feedback</label>
+                          <textarea class="form-control" id="feedback" name="feedback" rows="4" placeholder="Share your experience with this doctor..."></textarea>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-modal-submit">Submit Feedback</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Reschedule Modal -->
+  <div class="modal fade" id="rescheduleModal" tabindex="-1" aria-labelledby="rescheduleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="rescheduleModalLabel">Reschedule Appointment</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="rescheduleForm" action="{{ url_for('reschedule_appointment') }}" method="post">
+                      <input type="hidden" id="rescheduleAppointmentId" name="appointment_id">
+                      <div class="mb-3">
+                          <label for="rescheduleDoctor" class="form-label">Doctor</label>
+                          <p id="rescheduleDoctor" class="form-text"></p>
+                      </div>
+                      <div class="mb-3">
+                          <label for="currentDateTime" class="form-label">Current Date & Time</label>
+                          <p id="currentDateTime" class="form-text"></p>
+                      </div>
+                      <div class="mb-3">
+                          <label for="newDate" class="form-label">New Date</label>
+                          <input type="date" class="form-control" id="newDate" name="new_date" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="newTime" class="form-label">New Time</label>
+                          <select class="form-control" id="newTime" name="new_time" required>
+                              <option value="">Select a time</option>
+                              <option value="09:00 AM">09:00 AM</option>
+                              <option value="09:30 AM">09:30 AM</option>
+                              <option value="10:00 AM">10:00 AM</option>
+                              <option value="10:30 AM">10:30 AM</option>
+                              <option value="11:00 AM">11:00 AM</option>
+                              <option value="11:30 AM">11:30 AM</option>
+                              <option value="12:00 PM">12:00 PM</option>
+                              <option value="02:00 PM">02:00 PM</option>
+                              <option value="02:30 PM">02:30 PM</option>
+                              <option value="03:00 PM">03:00 PM</option>
+                              <option value="03:30 PM">03:30 PM</option>
+                              <option value="04:00 PM">04:00 PM</option>
+                              <option value="04:30 PM">04:30 PM</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                          <label for="rescheduleReason" class="form-label">Reason for Rescheduling</label>
+                          <textarea class="form-control" id="rescheduleReason" name="reason" rows="3" placeholder="Please provide a reason for rescheduling..."></textarea>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-modal-submit">Reschedule</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Add Medication Modal -->
+  <div class="modal fade" id="addMedicationModal" tabindex="-1" aria-labelledby="addMedicationModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="addMedicationModalLabel">Add Medication</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="addMedicationForm" action="{{ url_for('add_medication') }}" method="post">
+                      <div class="mb-3">
+                          <label for="medicationName" class="form-label">Medication Name</label>
+                          <input type="text" class="form-control" id="medicationName" name="medication_name" required>
+                          <div id="medicationSuggestions" class="list-group mt-2" style="display: none;"></div>
+                      </div>
+                      <div class="mb-3">
+                          <label for="dosage" class="form-label">Dosage</label>
+                          <input type="text" class="form-control" id="dosage" name="dosage" placeholder="e.g., 500mg" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="frequency" class="form-label">Frequency</label>
+                          <select class="form-control" id="frequency" name="frequency" required>
+                              <option value="">Select frequency</option>
+                              <option value="Once daily">Once daily</option>
+                              <option value="Twice daily">Twice daily</option>
+                              <option value="Three times daily">Three times daily</option>
+                              <option value="Four times daily">Four times daily</option>
+                              <option value="Every morning">Every morning</option>
+                              <option value="Every evening">Every evening</option>
+                              <option value="Before meals">Before meals</option>
+                              <option value="After meals">After meals</option>
+                              <option value="As needed">As needed</option>
+                          </select>
+                      </div>
+                      <div class="mb-3">
+                          <label for="startDate" class="form-label">Start Date</label>
+                          <input type="date" class="form-control" id="startDate" name="start_date" required>
+                      </div>
+                      <div class="mb-3">
+                          <label for="endDate" class="form-label">End Date (Optional)</label>
+                          <input type="date" class="form-control" id="endDate" name="end_date">
+                      </div>
+                      <div class="mb-3">
+                          <label for="instructions" class="form-label">Special Instructions</label>
+                          <textarea class="form-control" id="instructions" name="instructions" rows="3" placeholder="Any special instructions for taking this medication..."></textarea>
+                      </div>
+                      <div class="mb-3 form-check">
+                          <input type="checkbox" class="form-check-input" id="setReminder" name="set_reminder">
+                          <label class="form-check-label" for="setReminder">Set reminder for this medication</label>
+                      </div>
+                      <div class="d-flex justify-content-end">
+                          <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-modal-submit">Add Medication</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Medication Management Modal -->
+  <div class="modal fade" id="medicationModal" tabindex="-1" aria-labelledby="medicationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="medicationModalLabel">Medication Management</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h5 class="mb-0">Your Medications</h5>
+                      <button class="btn-new-appointment" data-bs-toggle="modal" data-bs-target="#addMedicationModal" data-bs-dismiss="modal">
+                          <i class="fas fa-plus-circle"></i> Add Medication
+                      </button>
+                  </div>
+
+                  <div id="medicationsModalList">
+                      <!-- Medications will be loaded here via JavaScript -->
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FullCalendar JS -->
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Toastr JS for notifications -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <!-- html2pdf for exporting appointments -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          // Initialize calendar
+          var calendarEl = document.getElementById('appointmentCalendar');
+          var calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              headerToolbar: {
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay'
+              },
+              events: [
+                  {% if user_details.appointments %}
+                      {% for appointment in user_details.appointments %}
+                          {
+                              title: 'Dr. {{ appointment.doctor_name }}',
+                              start: '{{ appointment.date }}T{{ appointment.time }}',
+                              extendedProps: {
+                                  doctor: '{{ appointment.doctor_name }}',
+                                  department: '{{ appointment.department }}',
+                                  purpose: '{{ appointment.purpose }}',
+                                  status: '{{ appointment.status }}',
+                                  notes: '{{ appointment.notes|default("") }}'
+                              },
+                              backgroundColor: '{{ appointment.status|lower }}' === 'upcoming' ? '#00a884' :
+                                              '{{ appointment.status|lower }}' === 'completed' ? '#28a745' : '#dc3545',
+                              borderColor: '{{ appointment.status|lower }}' === 'upcoming' ? '#00a884' :
+                                          '{{ appointment.status|lower }}' === 'completed' ? '#28a745' : '#dc3545'
+                          }{% if not loop.last %},{% endif %}
+                      {% endfor %}
+                  {% endif %}
+              ],
+              eventClick: function(info) {
+                  let notesText = info.event.extendedProps.notes ? `\nNotes: ${info.event.extendedProps.notes}` : '';
+                  alert('Appointment with ' + info.event.extendedProps.doctor +
+                        '\nDepartment: ' + info.event.extendedProps.department +
+                        '\nPurpose: ' + info.event.extendedProps.purpose +
+                        '\nStatus: ' + info.event.extendedProps.status +
+                        notesText);
+              }
+          });
+          calendar.render();
+
+          // Initialize filter buttons
+          const filterButtons = document.querySelectorAll('.filter-btn');
+          filterButtons.forEach(button => {
+              button.addEventListener('click', function() {
+                  // Remove active class from all buttons
+                  filterButtons.forEach(btn => btn.classList.remove('active'));
+                  // Add active class to clicked button
+                  this.classList.add('active');
+
+                  // Get filter value
+                  const filter = this.getAttribute('data-filter');
+
+                  // Filter appointments
+                  const appointments = document.querySelectorAll('.appointment-card');
+                  appointments.forEach(appointment => {
+                      if (filter === 'all') {
+                          appointment.style.display = 'block';
+                      } else {
+                          const status = appointment.getAttribute('data-status');
+                          if (status === filter) {
+                              appointment.style.display = 'block';
+                          } else {
+                              appointment.style.display = 'none';
+                          }
+                      }
+                  });
+              });
+          });
+
+          // Initialize search functionality
+          const searchInput = document.getElementById('appointmentSearch');
+          searchInput.addEventListener('input', function() {
+              const searchTerm = this.value.toLowerCase();
+              const appointments = document.querySelectorAll('.appointment-card');
+
+              appointments.forEach(appointment => {
+                  const text = appointment.textContent.toLowerCase();
+                  if (text.includes(searchTerm)) {
+                      appointment.style.display = 'block';
+                  } else {
+                      appointment.style.display = 'none';
+                  }
+              });
+          });
+
+          // Initialize Notes Modal
+          const notesModal = document.getElementById('notesModal');
+          if (notesModal) {
+              notesModal.addEventListener('show.bs.modal', function (event) {
+                  const button = event.relatedTarget;
+                  const appointmentId = button.getAttribute('data-appointment-id');
+                  const doctor = button.getAttribute('data-doctor');
+                  const date = button.getAttribute('data-date');
+                  const time = button.getAttribute('data-time');
+                  const notes = button.getAttribute('data-notes') || '';
+
+                  document.getElementById('notesAppointmentId').value = appointmentId;
+                  document.getElementById('appointmentDetails').textContent = `Dr. ${doctor} on ${date} at ${time}`;
+                  document.getElementById('notes').value = notes;
+              });
+          }
+
+          // Initialize Feedback Modal
+          const feedbackModal = document.getElementById('feedbackModal');
+          if (feedbackModal) {
+              feedbackModal.addEventListener('show.bs.modal', function (event) {
+                  const button = event.relatedTarget;
+                  const appointmentId = button.getAttribute('data-appointment-id');
+                  const doctor = button.getAttribute('data-doctor');
+
+                  document.getElementById('feedbackAppointmentId').value = appointmentId;
+                  document.getElementById('doctorName').textContent = `Dr. ${doctor}`;
+
+                  // Reset stars
+                  document.querySelectorAll('.star').forEach(star => {
+                      star.classList.remove('active');
+                  });
+                  document.getElementById('rating').value = 0;
+              });
+          }
+
+          // Star rating functionality
+          const stars = document.querySelectorAll('.star');
+          stars.forEach(star => {
+              star.addEventListener('click', function() {
+                  const rating = this.getAttribute('data-rating');
+                  document.getElementById('rating').value = rating;
+
+                  // Update star display
+                  stars.forEach(s => {
+                      if (s.getAttribute('data-rating') <= rating) {
+                          s.classList.add('active');
+                      } else {
+                          s.classList.remove('active');
+                      }
+                  });
+              });
+          });
+
+          // Initialize Reschedule Modal
+          const rescheduleModal = document.getElementById('rescheduleModal');
+          if (rescheduleModal) {
+              rescheduleModal.addEventListener('show.bs.modal', function (event) {
+                  const button = event.relatedTarget;
+                  const appointmentId = button.getAttribute('data-appointment-id');
+                  const doctor = button.getAttribute('data-doctor');
+                  const date = button.getAttribute('data-date');
+                  const time = button.getAttribute('data-time');
+
+                  document.getElementById('rescheduleAppointmentId').value = appointmentId;
+                  document.getElementById('rescheduleDoctor').textContent = `Dr. ${doctor}`;
+                  document.getElementById('currentDateTime').textContent = `${date} at ${time}`;
+
+                  // Set minimum date to today
+                  const today = new Date().toISOString().split('T')[0];
+                  document.getElementById('newDate').min = today;
+              });
+          }
+
+          // Load medications
+          loadMedications();
+
+          // Initialize medication name autocomplete
+          const medicationNameInput = document.getElementById('medicationName');
+          const medicationSuggestions = document.getElementById('medicationSuggestions');
+
+          if (medicationNameInput) {
+              medicationNameInput.addEventListener('input', function() {
+                  const searchTerm = this.value.toLowerCase();
+                  if (searchTerm.length < 2) {
+                      medicationSuggestions.style.display = 'none';
+                      return;
+                  }
+
+                  // Fetch medications from server
+                  fetch('/medicines.json')
+                      .then(response => response.json())
+                      .then(data => {
+                          const filteredMeds = data.filter(med =>
+                              med.name.toLowerCase().includes(searchTerm)
+                          ).slice(0, 5);
+
+                          if (filteredMeds.length > 0) {
+                              medicationSuggestions.innerHTML = '';
+                              filteredMeds.forEach(med => {
+                                  const item = document.createElement('a');
+                                  item.href = '#';
+                                  item.className = 'list-group-item list-group-item-action';
+                                  item.textContent = med.name;
+                                  item.addEventListener('click', function(e) {
+                                      e.preventDefault();
+                                      medicationNameInput.value = med.name;
+                                      medicationSuggestions.style.display = 'none';
+                                  });
+                                  medicationSuggestions.appendChild(item);
+                              });
+                              medicationSuggestions.style.display = 'block';
+                          } else {
+                              medicationSuggestions.style.display = 'none';
+                          }
+                      })
+                      .catch(error => {
+                          console.error('Error fetching medications:', error);
+                          medicationSuggestions.style.display = 'none';
+                      });
+              });
+
+              // Hide suggestions when clicking outside
+              document.addEventListener('click', function(e) {
+                  if (e.target !== medicationNameInput && e.target !== medicationSuggestions) {
+                      medicationSuggestions.style.display = 'none';
+                  }
+              });
+          }
+      });
+
+      // Function to print appointment
+      function printAppointment(button) {
+          const appointmentCard = button.closest('.appointment-card');
+          const clone = appointmentCard.cloneNode(true);
+
+          // Remove action buttons from the clone
+          const actionButtons = clone.querySelector('.action-buttons');
+          if (actionButtons) {
+              actionButtons.remove();
+          }
+
+          // Add some styling for the PDF
+          clone.style.padding = '20px';
+          clone.style.maxWidth = '800px';
+          clone.style.margin = '0 auto';
+
+          // Add a header
+          const header = document.createElement('div');
+          header.innerHTML = `
+              <div style="text-align: center; margin-bottom: 20px;">
+                  <h2 style="color: #00a884;">PASMA - Patient Appointment</h2>
+                  <p>Printed on ${new Date().toLocaleDateString()}</p>
+              </div>
+          `;
+          clone.insertBefore(header, clone.firstChild);
+
+          // Generate PDF
+          const opt = {
+              margin: 10,
+              filename: 'appointment-details.pdf',
+              image: { type: 'jpeg', quality: 0.98 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+          };
+
+          html2pdf().set(opt).from(clone).save();
+      }
+
+      // Function to cancel appointment
+      function cancelAppointment(appointmentId) {
+          if (confirm('Are you sure you want to cancel this appointment?')) {
+              // Send request to server
+              fetch('/cancel_appointment', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded',
+                  },
+                  body: `appointment_id=${appointmentId}`
+              })
+              .then(response => {
+                  if (response.ok) {
+                      // Show success message
+                      toastr.success('Appointment cancelled successfully');
+                      // Reload page after a short delay
+                      setTimeout(() => {
+                          window.location.reload();
+                      }, 1500);
+                  } else {
+                      toastr.error('Failed to cancel appointment');
+                  }
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+                  toastr.error('An error occurred');
+              });
+          }
+      }
+  </script>
+  <script src="{{ url_for('static', filename='js/medications.js') }}"></script>
+</body>
+</html>

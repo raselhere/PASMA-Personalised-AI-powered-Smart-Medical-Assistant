@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+
+{% block title %}PASMA Admin{% endblock %}
+
+{% block content %}
+<h1 class="section-title">Dashboard</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="stat-card text-center">
+            <div class="stat-icon">
+                <i class="fas fa-user-md"></i>
+            </div>
+            <div class="stat-value">{{ stats.doctors_count }}</div>
+            <div class="stat-label">Total Doctors</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card text-center">
+            <div class="stat-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="stat-value">{{ stats.patients_count }}</div>
+            <div class="stat-label">Total Patients</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="stat-card text-center">
+            <div class="stat-icon">
+                <i class="fas fa-pills"></i>
+            </div>
+            <div class="stat-value">{{ stats.medicines_count }}</div>
+            <div class="stat-label">Total Medicines</div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-line me-2"></i> System Overview
+            </div>
+            <div class="card-body">
+                <canvas id="overviewChart" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-tasks me-2"></i> Quick Actions
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <a href="{{ url_for('add_doctor') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user-md me-2 text-primary"></i> Add New Doctor
+                    </a>
+                    <a href="{{ url_for('add_patient') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user me-2 text-primary"></i> Add New Patient
+                    </a>
+                    <a href="{{ url_for('add_medicine') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-pills me-2 text-primary"></i> Add New Medicine
+                    </a>
+                    {% if session.get('admin_role') == 'super_admin' %}
+                    <a href="{{ url_for('add_admin') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-user-shield me-2 text-primary"></i> Add New Admin
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Sample chart data
+    const ctx = document.getElementById('overviewChart').getContext('2d');
+    const overviewChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Doctors', 'Patients', 'Medicines'],
+            datasets: [{
+                label: 'Total Count',
+                data: [{{ stats.doctors_count }}, {{ stats.patients_count }}, {{ stats.medicines_count }}],
+                backgroundColor: [
+                    'rgba(99, 102, 241, 0.7)',
+                    'rgba(99, 102, 241, 0.5)',
+                    'rgba(99, 102, 241, 0.3)'
+                ],
+                borderColor: [
+                    'rgba(99, 102, 241, 1)',
+                    'rgba(99, 102, 241, 1)',
+                    'rgba(99, 102, 241, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,2255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to PASMA</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --primary-color: #00a884;
+        --primary-dark: #008f6c;
+        --primary-light: #e8f5f1;
+        --secondary-color: #00d4aa;
+        --accent-color: #ff6b35;
+        --accent-secondary: #8b5cf6;
+        --text-color: #2d3748;
+        --light-text: #718096;
+        --white: #ffffff;
+        --light-bg: #f7fafc;
+        --gradient-primary: linear-gradient(135deg, #00a884 0%, #00d4aa 100%);
+        --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-hero: linear-gradient(135deg, #00a884 0%, #00d4aa 50%, #8b5cf6 100%);
+        --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
+        --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.1);
+        --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.15);
+        --shadow-glow: 0 0 30px rgba(0, 168, 132, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        background-color: var(--white);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Particle Animation Background */
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float-particles 6s ease-in-out infinite;
+      }
+
+      .particle:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
+      .particle:nth-child(2) { width: 60px; height: 60px; left: 20%; animation-delay: 2s; }
+      .particle:nth-child(3) { width: 100px; height: 100px; left: 35%; animation-delay: 4s; }
+      .particle:nth-child(4) { width: 40px; height: 40px; left: 70%; animation-delay: 1s; }
+      .particle:nth-child(5) { width: 120px; height: 120px; left: 80%; animation-delay: 3s; }
+
+      @keyframes float-particles {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-30px) rotate(120deg); }
+        66% { transform: translateY(30px) rotate(240deg); }
+      }
+
+      /* Navigation Styles */
+      .navbar-custom {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-light);
+        transition: all 0.3s ease;
+        padding: 15px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .navbar-custom.scrolled {
+        padding: 10px 0;
+        box-shadow: var(--shadow-medium);
+        background: rgba(255, 255, 255, 0.95) !important;
+      }
+
+      .navbar-custom .nav-link {
+        color: var(--text-color) !important;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        margin: 0 10px;
+      }
+
+      .navbar-custom .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--gradient-primary);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .navbar-custom .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .navbar-custom .nav-link:hover {
+        color: var(--primary-color) !important;
+      }
+
+      .navbar-brand {
+        font-weight: 800 !important;
+        font-size: 1.8rem !important;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+      }
+
+      .logo {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .logo::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .logo:hover::after {
+        opacity: 0.2;
+      }
+
+      .logo:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .myimg {
+        width: 50px;
+        height: 50px;
+        border: 3px solid var(--primary-color);
+        border-radius: 25px;
+        box-shadow: var(--shadow-light);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        background: linear-gradient(135deg, 
+          rgba(0, 168, 132, 0.05) 0%, 
+          rgba(139, 92, 246, 0.05) 50%, 
+          rgba(255, 255, 255, 0.95) 100%);
+        padding: 140px 0 100px;
+        position: relative;
+        overflow: hidden;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+          radial-gradient(circle at 20% 80%, rgba(0, 168, 132, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 40% 40%, rgba(0, 212, 170, 0.05) 0%, transparent 50%);
+        z-index: 0;
+      }
+
+      .hero-content {
+        max-width: 650px;
+        z-index: 2;
+        position: relative;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+        backdrop-filter: blur(15px);
+        border: 2px solid rgba(0, 168, 132, 0.3);
+        border-radius: 50px;
+        padding: 12px 28px;
+        margin-bottom: 25px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        box-shadow: 
+          0 8px 32px rgba(0, 168, 132, 0.15),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        position: relative;
+        overflow: hidden;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        animation: badge-pulse 3s ease-in-out infinite;
+      }
+
+      .hero-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 168, 132, 0.1), transparent);
+        animation: badge-shimmer 2s ease-in-out infinite;
+      }
+
+      .hero-badge::after {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-secondary));
+        border-radius: 50px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .hero-badge:hover::after {
+        opacity: 1;
+      }
+
+      .hero-badge:hover {
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 
+          0 12px 40px rgba(0, 168, 132, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        border-color: var(--primary-color);
+      }
+
+      .hero-badge i {
+        margin-right: 12px;
+        color: var(--secondary-color);
+        font-size: 1.3rem;
+        animation: badge-icon-rotate 2s linear infinite;
+      }
+
+      @keyframes badge-pulse {
+        0%, 100% {
+          box-shadow: 
+            0 8px 32px rgba(0, 168, 132, 0.15),
+            0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+        50% {
+          box-shadow: 
+            0 12px 40px rgba(0, 168, 132, 0.25),
+            0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+      }
+
+      @keyframes badge-shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes badge-icon-rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .hero-title {
+        font-size: 4.5rem;
+        font-weight: 800;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 25px;
+        line-height: 1.1;
+        letter-spacing: -2px;
+        position: relative;
+      }
+
+      .hero-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100px;
+        height: 4px;
+        background: var(--gradient-primary);
+        border-radius: 2px;
+      }
+
+      .hero-subtitle {
+        font-size: 1.4rem;
+        color: var(--light-text);
+        margin-bottom: 40px;
+        line-height: 1.8;
+        font-weight: 400;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-hero-primary {
+        background: var(--gradient-primary);
+        color: var(--white);
+        border: none;
+        padding: 18px 45px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.4s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: var(--shadow-medium);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-hero-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.6s;
+      }
+
+      .btn-hero-primary:hover::before {
+        left: 100%;
+      }
+
+      .btn-hero-primary:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-glow);
+        color: var(--white);
+      }
+
+      .btn-hero-secondary {
+        background: transparent;
+        color: var(--text-color);
+        border: 2px solid var(--primary-color);
+        padding: 16px 35px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        backdrop-filter: blur(10px);
+        background: var(--gradient-glass);
+      }
+
+      .btn-hero-secondary:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .hero-features {
+        display: flex;
+        gap: 30px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      .hero-feature {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--light-text);
+        font-size: 0.95rem;
+      }
+
+      .hero-feature i {
+        color: var(--primary-color);
+        font-size: 1.1rem;
+      }
+
+      .doctor-image {
+        position: absolute;
+        right: -100px;
+        bottom: 0;
+        max-height: 90%;
+        z-index: 1;
+        filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.15));
+        transition: transform 0.3s ease;
+      }
+
+      .doctor-image:hover {
+        transform: scale(1.02);
+      }
+
+      /* Stats Section */
+      .stats-section {
+        background: var(--gradient-hero);
+        padding: 80px 0;
+        color: var(--white);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stats-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M 50 0 L 0 0 0 50" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+        z-index: 0;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+        z-index: 1;
+        background: var(--gradient-glass);
+        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 15px;
+        display: block;
+        background: linear-gradient(45deg, #ffffff, #f0f0f0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .stat-label {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+      }
+
+      /* Testimonials Section */
+      .testimonials-section {
+        padding: 100px 0;
+        background: var(--light-bg);
+      }
+
+      .testimonials-container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .testimonials-scroll {
+        display: flex;
+        gap: 25px;
+        overflow-x: auto;
+        padding: 20px 0 40px 0;
+        scroll-behavior: smooth;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* Internet Explorer 10+ */
+      }
+
+      .testimonials-scroll::-webkit-scrollbar {
+        display: none; /* WebKit */
+      }
+
+      .testimonial-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 30px 25px;
+        box-shadow: var(--shadow-light);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        min-width: 320px;
+        max-width: 320px;
+        flex-shrink: 0;
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-strong);
+      }
+
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .testimonial-avatar {
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 1.2rem;
+        color: var(--white);
+        box-shadow: var(--shadow-light);
+      }
+
+      .testimonial-info {
+        flex: 1;
+      }
+
+      .testimonial-info h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 3px;
+        color: var(--text-color);
+      }
+
+      .testimonial-info span {
+        font-size: 0.85rem;
+        color: var(--light-text);
+        font-weight: 500;
+      }
+
+      .testimonial-rating {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+      }
+
+      .testimonial-rating i {
+        color: #ffd700;
+        font-size: 0.9rem;
+        margin-left: 2px;
+      }
+
+      .testimonial-text {
+        color: var(--light-text);
+        line-height: 1.6;
+        font-size: 0.95rem;
+        font-style: italic;
+        position: relative;
+      }
+
+      .testimonial-text::before {
+        content: '"';
+        font-size: 3rem;
+        color: var(--primary-color);
+        opacity: 0.2;
+        position: absolute;
+        top: -15px;
+        left: -8px;
+        font-family: serif;
+      }
+
+      /* Scroll indicators */
+      .scroll-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 30px;
+      }
+
+      .scroll-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 168, 132, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .scroll-indicator.active {
+        background: var(--primary-color);
+        transform: scale(1.2);
+      }
+
+      /* Scroll hint */
+      .scroll-hint {
+        text-align: center;
+        margin-top: 20px;
+        color: var(--light-text);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .scroll-hint i {
+        color: var(--primary-color);
+        animation: bounce-horizontal 2s infinite;
+      }
+
+      @keyframes bounce-horizontal {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateX(0);
+        }
+        40% {
+          transform: translateX(-5px);
+        }
+        60% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* Features Section */
+      .features-section {
+        padding: 120px 0;
+        background: linear-gradient(135deg, var(--white) 0%, var(--light-bg) 100%);
+        position: relative;
+      }
+
+      .features-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+          radial-gradient(circle at 70% 30%, rgba(0, 168, 132, 0.05) 0%, transparent 50%),
+          radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+        z-index: 0;
+      }
+
+      .section-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 25px;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+      }
+
+      .section-subtitle {
+        text-align: center;
+        font-size: 1.3rem;
+        color: var(--light-text);
+        margin-bottom: 70px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.8;
+      }
+
+      .feature-card {
+        background: var(--gradient-glass);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 25px;
+        padding: 50px 35px;
+        box-shadow: var(--shadow-light);
+        transition: all 0.5s ease;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .feature-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transition: transform 0.5s ease;
+        z-index: -1;
+      }
+
+      .feature-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--gradient-primary);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: -1;
+      }
+
+      .feature-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .feature-card:hover::after {
+        opacity: 0.03;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-20px) scale(1.02);
+        box-shadow: var(--shadow-glow);
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      .feature-icon {
+        width: 90px;
+        height: 90px;
+        background: var(--gradient-primary);
+        border-radius: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+        font-size: 2.2rem;
+        color: var(--white);
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-icon::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.6s;
+      }
+
+      .feature-card:hover .feature-icon::before {
+        left: 100%;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.15) rotate(5deg);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .feature-title {
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: var(--text-color);
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .feature-description {
+        color: var(--light-text);
+        line-height: 1.8;
+        font-size: 1.1rem;
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        padding: 100px 0;
+        background: var(--white);
+      }
+
+      .step-item {
+        text-align: center;
+        padding: 30px 20px;
+        position: relative;
+      }
+
+      .step-number {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 25px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--white);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .step-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-color);
+      }
+
+      .step-description {
+        color: var(--light-text);
+        line-height: 1.6;
+      }
+
+      /* Auth button styles */
+      .auth-btn {
+        color: var(--text-color);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+      }
+
+      .login-btn {
+        border: 2px solid var(--primary-color);
+        background: transparent;
+        
+      }
+
+      .login-btn:hover {
+        background: var(--primary-color);
+        color: var(--white);
+      }
+
+      .signup-btn {
+        background: var(--gradient-primary);
+        color: var(--white);
+        margin-left: 15px;
+        border: 2px solid transparent;
+      }
+
+      .signup-btn:hover {
+        background: var(--primary-dark);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        padding: 100px 0;
+        background: var(--light-bg);
+      }
+
+      .accordion-item {
+        border: none;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: var(--shadow-light);
+        background: var(--white);
+      }
+
+      .accordion-button {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--text-color);
+        background-color: var(--white);
+        padding: 25px 30px;
+        border: none;
+        transition: all 0.3s ease;
+      }
+
+      .accordion-button:not(.collapsed) {
+        color: var(--primary-color);
+        background-color: var(--white);
+        box-shadow: none;
+      }
+
+      .accordion-button:focus {
+        box-shadow: none;
+        border: none;
+      }
+
+      .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300a884'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+        transition: transform 0.3s ease;
+      }
+
+      .accordion-button[aria-expanded="true"]::after {
+        transform: rotate(180deg);
+      }
+
+      .accordion-body {
+        padding: 0 30px 25px;
+        color: var(--light-text);
+        line-height: 1.7;
+      }
+
+      .contact-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .contact-link:hover {
+        color: var(--primary-dark);
+        text-decoration: underline;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: var(--gradient-primary);
+        padding: 80px 0;
+        color: var(--white);
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .cta-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .btn-cta {
+        background: var(--white);
+        color: var(--primary-color);
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: var(--shadow-medium);
+      }
+
+      .btn-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-strong);
+        color: var(--primary-color);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        color: var(--white);
+        padding: 60px 0 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="footergrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23footergrid)"/></svg>');
+        z-index: 0;
+      }
+
+      .footer-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-top {
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-brand {
+        margin-bottom: 25px;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        border-radius: 8px;
+      }
+
+      .footer-logo-text {
+        font-size: 1.8rem;
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .footer-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.7;
+        max-width: 300px;
+        margin-bottom: 20px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .social-link:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 168, 132, 0.3);
+      }
+
+      .footer-section {
+        margin-bottom: 30px;
+      }
+
+      .footer-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .footer-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: var(--primary-color);
+        border-radius: 1px;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+      }
+
+      .footer-links a i {
+        margin-right: 8px;
+        width: 16px;
+      }
+
+      .footer-contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-contact-item i {
+        width: 20px;
+        margin-right: 12px;
+        color: var(--primary-color);
+      }
+
+      .newsletter {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .newsletter-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--white);
+      }
+
+      .newsletter-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 10px;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .newsletter-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .newsletter-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .newsletter-btn {
+        padding: 12px 20px;
+        background: var(--gradient-primary);
+        border: none;
+        border-radius: 8px;
+        color: var(--white);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .newsletter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 168, 132, 0.3);
+      }
+
+      .footer-bottom {
+        padding: 25px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 40px;
+      }
+
+      .footer-bottom-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .footer-copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+
+      .footer-legal {
+        display: flex;
+        gap: 25px;
+      }
+
+      .footer-legal a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-legal a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Responsive footer */
+      @media (max-width: 768px) {
+        .footer {
+          padding: 40px 0 0;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+
+        .footer-bottom-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-legal {
+          justify-content: center;
+        }
+
+        .footer-social {
+          justify-content: center;
+        }
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .floating {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .hero-title {
+          font-size: 3rem;
+        }
+
+        .doctor-image {
+          opacity: 0.3;
+          max-height: 70%;
+        }
+
+        .section-title {
+          font-size: 2.5rem;
+        }
+
+        .stats-section {
+          padding: 40px 0;
+        }
+
+        .stat-number {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-section {
+          padding: 100px 0 60px;
+          text-align: center;
+        }
+
+        .features-section,
+        .how-it-works,
+        .faq-section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .accordion-button {
+          font-size: 1.1rem;
+          padding: 20px 25px;
+        }
+
+        .accordion-body {
+          padding: 0 25px 20px;
+        }
+
+        .auth-btn {
+          margin: 5px;
+        }
+
+        .signup-btn {
+          margin-left: 5px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 2rem;
+        }
+
+        .btn-hero-primary {
+          padding: 14px 30px;
+          font-size: 1rem;
+        }
+
+        .feature-card {
+          padding: 30px 20px;
+        }
+
+        .cta-title {
+          font-size: 2rem;
+        }
+      }
+
+      /* Loading animation */
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
+  <div class="container">
+    <div class="d-flex align-items-center">
+    <div class="logo">
+      <img class="myimg" src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
+    </div>
+      <a class="navbar-brand">PASMA</a>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#features">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#how-it-works">How It Works</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#faq">FAQ</a>
+        </li>
+        <li class="nav-item dropdown me-2">
+          <a class="auth-btn login-btn dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Login
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('login') }}">Login as Patient</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('doctor_login') }}">Login as Doctor</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="auth-btn signup-btn dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Sign Up
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="signupDropdown">
+            <li><a class="dropdown-item" href="{{ url_for('signup') }}">Sign Up as Patient</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('doctor_signup') }}">Sign Up as Doctor</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+      <div class="container">
+    <div class="row align-items-center">
+          <div class="col-lg-6">
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+          <div class="hero-badge" data-aos="fade-right" data-aos-delay="200">
+            <i class="fas fa-star"></i>
+            #1 AI Medical Assistant Platform
+          </div>
+              <h1 class="hero-title">We're Determined For Your Better Life</h1>
+              <p class="hero-subtitle">
+                PASMA (Personalised AI-Powered Smart Medical Assistant) is your trusted companion for health and wellness.
+                Get instant disease predictions based on your symptoms, personalized recommendations for precautions,
+                medications, diets, and workouts.
+              </p>
+          <div class="hero-buttons" data-aos="fade-up" data-aos-delay="400">
+            <a href="{{ url_for('login') }}" class="btn-hero-primary">
+              <i class="fas fa-rocket"></i>
+              Get Started Now
+            </a>
+            <a href="#how-it-works" class="btn-hero-secondary">
+              <i class="fas fa-play"></i>
+              Watch Demo
+              </a>
+            </div>
+          <div class="hero-features" data-aos="fade-up" data-aos-delay="600">
+            <div class="hero-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>98% Accuracy</span>
+          </div>
+            <div class="hero-feature">
+              <i class="fas fa-shield-alt"></i>
+              <span>HIPAA Compliant</span>
+        </div>
+            <div class="hero-feature">
+              <i class="fas fa-clock"></i>
+              <span>24/7 Available</span>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <img src="{{ url_for('static', filename='—Pngtree—medical staff with doctors and_15646014.png') }}" alt="Healthcare Professionals" class="doctor-image floating">
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-6">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+          <span class="stat-number">10K+</span>
+          <div class="stat-label">Happy Patients</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+          <span class="stat-number">500+</span>
+          <div class="stat-label">Doctors</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+          <span class="stat-number">98%</span>
+          <div class="stat-label">Accuracy</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+          <span class="stat-number">24/7</span>
+          <div class="stat-label">Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h2 class="section-title" data-aos="fade-up">What Our Users Say</h2>
+        <p class="section-subtitle" style="margin-left: auto; margin-right: auto;" data-aos="fade-up" data-aos-delay="200">
+          Real stories from people who trust PASMA with their health
+        </p>
+      </div>
+    </div>
+    <div class="testimonials-container" data-aos="fade-up" data-aos-delay="300">
+      <div class="testimonials-scroll" id="testimonialsScroll">
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Sarah Johnson</h4>
+              <span>Working Mother</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            PASMA has been a game-changer for my family's health. The AI predictions are incredibly accurate, and I love getting personalized recommendations instantly.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user-md"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Dr. Michael Chen</h4>
+              <span>General Practitioner</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            As a doctor, I'm impressed by PASMA's accuracy. It's an excellent tool for preliminary assessments and helps patients make informed decisions about their health.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Emma Rodriguez</h4>
+              <span>College Student</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            Being away from home, PASMA gives me peace of mind. The 24/7 availability and personalized care recommendations are exactly what I needed.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user-nurse"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Maria Santos</h4>
+              <span>Nurse Practitioner</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            PASMA streamlines patient triage in our clinic. The AI-driven insights help us prioritize cases and provide better care to our patients.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Robert Thompson</h4>
+              <span>Senior Citizen</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            At my age, health concerns are frequent. PASMA helps me understand my symptoms better and guides me on when to seek medical attention.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Jennifer Lee</h4>
+              <span>Fitness Enthusiast</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            The personalized workout and diet recommendations are amazing! PASMA considers my health conditions and creates perfect fitness plans for me.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Mark Williams</h4>
+              <span>Chronic Patient</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            Managing my diabetes is easier with PASMA. The platform tracks my symptoms and provides valuable insights for my daily health management.
+          </p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div class="testimonial-info">
+              <h4>Lisa Park</h4>
+              <span>New Parent</span>
+            </div>
+            <div class="testimonial-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            As a new mom, PASMA helps me understand both my health and my baby's symptoms. It's like having a pediatrician and family doctor on call.
+          </p>
+        </div>
+      </div>
+      <div class="scroll-indicators" id="scrollIndicators">
+        <div class="scroll-indicator active"></div>
+        <div class="scroll-indicator"></div>
+        <div class="scroll-indicator"></div>
+        <div class="scroll-indicator"></div>
+      </div>
+      <div class="scroll-hint">
+        <i class="fas fa-hand-point-right"></i>
+        <span>Swipe or scroll to see more testimonials</span>
+      </div>
+    </div>
+  </div>
+    </section>
+
+    <!-- Features Section -->
+<section class="features-section" id="features">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-12 text-center">
+        <h2 class="section-title" data-aos="fade-up">Why Choose PASMA?</h2>
+        <p class="section-subtitle mx-auto" data-aos="fade-up" data-aos-delay="200">
+          Experience the future of healthcare with our AI-powered medical assistant designed to provide accurate, personalized care.
+        </p>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="feature-icon">
+                <i class="fas fa-stethoscope"></i>
+              </div>
+              <h3 class="feature-title">Accurate Diagnosis</h3>
+              <p class="feature-description">
+            Our AI-powered system analyzes your symptoms to provide accurate disease predictions and personalized health recommendations with 98% accuracy.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="feature-icon">
+                <i class="fas fa-heartbeat"></i>
+              </div>
+              <h3 class="feature-title">Personalized Care</h3>
+              <p class="feature-description">
+            Receive tailored recommendations for medications, precautions, diet plans, and workout routines based on your unique health condition and history.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-4">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="feature-icon">
+                <i class="fas fa-clock"></i>
+              </div>
+              <h3 class="feature-title">24/7 Availability</h3>
+              <p class="feature-description">
+            Access healthcare information and assistance anytime, anywhere. PASMA is always available to help with your health concerns and questions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="how-it-works" id="how-it-works">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-12 text-center">
+        <h2 class="section-title" data-aos="fade-up">How PASMA Works</h2>
+        <p class="section-subtitle mx-auto" data-aos="fade-up" data-aos-delay="200">
+          Get personalized healthcare recommendations in just three simple steps
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="step-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Enter Symptoms</h3>
+          <p class="step-description">
+            Describe your symptoms in detail using our intuitive interface. Our AI understands natural language input.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="step-number">2</div>
+          <h3 class="step-title">AI Analysis</h3>
+          <p class="step-description">
+            Our advanced AI algorithms analyze your symptoms against medical databases to identify potential conditions.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="step-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Get Recommendations</h3>
+          <p class="step-description">
+            Receive personalized recommendations for treatments, precautions, diet plans, and when to see a doctor.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+<section class="faq-section" id="faq">
+      <div class="container">
+    <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+    <p class="section-subtitle mx-auto" data-aos="fade-up" data-aos-delay="200">
+      Find answers to common questions about PASMA and how it can help you
+    </p>
+        <div class="accordion" id="faqAccordion">
+          <!-- FAQ Item 1 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Can PASMA replace my doctor?
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                No, PASMA is designed to be a complementary tool to healthcare professionals, not a replacement. While our AI-powered system can provide preliminary disease predictions based on symptoms and offer general health recommendations, it should not substitute professional medical advice. Always consult with a qualified healthcare provider for proper diagnosis and treatment.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 2 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="accordion-header" id="headingTwo">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                How do I ensure my health data is safe with PASMA?
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA takes data security and privacy very seriously. We implement industry-standard encryption protocols to protect your personal information. Your health data is stored securely and is never shared with third parties without your explicit consent. You have complete control over your data and can request its deletion at any time through your account settings.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 3 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+            <h2 class="accordion-header" id="headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Why should I choose PASMA as my Personal Health Assistant?
+              </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA offers a unique combination of AI-powered disease prediction and personalized health recommendations. Our system is trained on extensive medical data to provide accurate insights. Unlike generic health apps, PASMA provides tailored advice for medications, precautions, diet plans, and workout routines based on your specific health condition. It's available 24/7, easy to use, and continuously improving through machine learning.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 4 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="400">
+            <h2 class="accordion-header" id="headingFour">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                What kind of health issues can PASMA help with?
+              </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA can help identify a wide range of common health conditions based on the symptoms you report. Our system is trained to recognize patterns associated with various diseases including respiratory infections, digestive disorders, skin conditions, and more. However, PASMA is most effective for preliminary assessments and should not be used for emergency situations or as a substitute for professional medical diagnosis.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 5 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="500">
+            <h2 class="accordion-header" id="headingFive">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                How reliable are the health insights provided by PASMA?
+              </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                PASMA uses advanced machine learning algorithms trained on medical datasets to provide reliable health insights. Our system has been developed with input from healthcare professionals and is regularly updated with the latest medical knowledge. However, it's important to understand that no AI system can be 100% accurate. The predictions and recommendations should be used as a starting point for discussions with healthcare providers, not as definitive diagnoses.
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQ Item 6 -->
+      <div class="accordion-item" data-aos="fade-up" data-aos-delay="600">
+            <h2 class="accordion-header" id="headingSix">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                How can I get started with PASMA?
+              </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Getting started with PASMA is simple. Just create an account by clicking the "Sign Up" button, fill in your basic health information, and you're ready to go. You can then enter your symptoms to receive disease predictions and personalized health recommendations. The more you use PASMA, the more personalized your experience becomes as our system learns about your health patterns and preferences.
+              </div>
+            </div>
+          </div>
+
+          <!-- Have more questions -->
+      <div class="mt-5 text-center" data-aos="fade-up" data-aos-delay="700">
+            <p class="fs-5">Have more questions? <a href="{{ url_for('login') }}" class="contact-link">Contact us</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div data-aos="fade-up">
+          <h2 class="cta-title">Ready to Take Control of Your Health?</h2>
+          <p class="cta-subtitle">Join thousands of users who trust PASMA for their healthcare needs</p>
+          <a href="{{ url_for('signup') }}" class="btn-cta">
+            Start Your Health Journey
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="container">
+      <div class="footer-top">
+        <div class="row">
+          <!-- Company Information -->
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-brand">
+              <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
+                <span class="footer-logo-text">PASMA</span>
+              </div>
+              <p class="footer-description">
+                Your trusted AI-powered medical assistant providing accurate health insights, personalized recommendations, and 24/7 healthcare support.
+              </p>
+              <div class="footer-social">
+                <a href="#" class="social-link" aria-label="Facebook">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="YouTube">
+                  <i class="fab fa-youtube"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Services -->
+          <div class="col-lg-2 col-md-6">
+            <div class="footer-section">
+              <h4 class="footer-title">Services</h4>
+              <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-stethoscope"></i>Disease Prediction</a></li>
+                <li><a href="#"><i class="fas fa-pills"></i>Medication Guide</a></li>
+                <li><a href="#"><i class="fas fa-apple-alt"></i>Diet Plans</a></li>
+                <li><a href="#"><i class="fas fa-dumbbell"></i>Workout Plans</a></li>
+                <li><a href="#"><i class="fas fa-user-md"></i>Doctor Connect</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-section">
+              <h4 class="footer-title">Contact Info</h4>
+              <div class="footer-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>123 Health Street, Medical District, City 12345</span>
+              </div>
+              <div class="footer-contact-item">
+                <i class="fas fa-phone"></i>
+                <span>+1 (555) 123-PASMA</span>
+              </div>
+              <div class="footer-contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>support@pasma.health</span>
+              </div>
+              <div class="footer-contact-item">
+                <i class="fas fa-clock"></i>
+                <span>24/7 AI Support Available</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stay Updated -->
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-section">
+              <div class="newsletter">
+                <h4 class="footer-title" style="color: var(--white); margin-bottom: 20px;">Stay Updated</h4>
+                <p class="newsletter-description">
+                  Get the latest health tips and PASMA updates delivered to your inbox.
+                </p>
+                <form class="newsletter-form" id="newsletterForm">
+                  <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter your email" required>
+                  <button type="submit" class="newsletter-btn" id="newsletterBtn">
+                    <i class="fas fa-paper-plane"></i>
+                  </button>
+                </form>
+                <div id="newsletterMessage" style="margin-top: 10px; font-size: 0.9rem; text-align: center;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <div class="footer-copyright">
+            <p>&copy; 2024 PASMA. All rights reserved. | Personalised AI-Powered Smart Medical Assistant</p>
+          </div>
+          <div class="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">HIPAA Compliance</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  // Initialize AOS
+  AOS.init({
+    duration: 1000,
+    once: true,
+    offset: 100
+  });
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar-custom');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Smooth scrolling for navigation links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+
+  // Counter animation for stats
+  function animateCounter(element, target) {
+    let current = 0;
+    const increment = target / 100;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      if (target.toString().includes('%')) {
+        element.textContent = Math.floor(current) + '%';
+      } else if (target.toString().includes('K')) {
+        element.textContent = Math.floor(current) + 'K+';
+      } else if (target.toString().includes('/')) {
+        element.textContent = target;
+      } else {
+        element.textContent = Math.floor(current) + '+';
+      }
+    }, 20);
+  }
+
+  // Trigger counter animation when stats section is visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counters = entry.target.querySelectorAll('.stat-number');
+        counters.forEach(counter => {
+          const target = counter.textContent;
+          if (target.includes('10K')) {
+            animateCounter(counter, 10000);
+          } else if (target.includes('500')) {
+            animateCounter(counter, 500);
+          } else if (target.includes('98%')) {
+            animateCounter(counter, 98);
+          } else {
+            counter.textContent = target;
+          }
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  });
+
+  const statsSection = document.querySelector('.stats-section');
+  if (statsSection) {
+    observer.observe(statsSection);
+  }
+
+  // Testimonials horizontal scroll functionality
+  const testimonialsScroll = document.getElementById('testimonialsScroll');
+  const scrollIndicators = document.querySelectorAll('.scroll-indicator');
+  
+  if (testimonialsScroll && scrollIndicators.length > 0) {
+    // Update indicators based on scroll position
+    testimonialsScroll.addEventListener('scroll', () => {
+      const scrollLeft = testimonialsScroll.scrollLeft;
+      const maxScroll = testimonialsScroll.scrollWidth - testimonialsScroll.clientWidth;
+      const scrollPercentage = scrollLeft / maxScroll;
+      
+      // Calculate which indicator should be active
+      const activeIndex = Math.round(scrollPercentage * (scrollIndicators.length - 1));
+      
+      scrollIndicators.forEach((indicator, index) => {
+        indicator.classList.toggle('active', index === activeIndex);
+      });
+    });
+    
+    // Click handlers for indicators
+    scrollIndicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        const cardWidth = 320 + 25; // card width + gap
+        const scrollPosition = index * cardWidth * 2; // 2 cards per scroll
+        
+        testimonialsScroll.scrollTo({
+          left: scrollPosition,
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Touch/swipe support for mobile
+    let isDown = false;
+    let startX;
+    let scrollLeftStart;
+    
+    testimonialsScroll.addEventListener('mousedown', (e) => {
+      isDown = true;
+      startX = e.pageX - testimonialsScroll.offsetLeft;
+      scrollLeftStart = testimonialsScroll.scrollLeft;
+      testimonialsScroll.style.cursor = 'grabbing';
+    });
+    
+    testimonialsScroll.addEventListener('mouseleave', () => {
+      isDown = false;
+      testimonialsScroll.style.cursor = 'grab';
+    });
+    
+    testimonialsScroll.addEventListener('mouseup', () => {
+      isDown = false;
+      testimonialsScroll.style.cursor = 'grab';
+    });
+    
+    testimonialsScroll.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - testimonialsScroll.offsetLeft;
+      const walk = (x - startX) * 2;
+      testimonialsScroll.scrollLeft = scrollLeftStart - walk;
+    });
+    
+    // Add grab cursor
+    testimonialsScroll.style.cursor = 'grab';
+  }
+
+  // Newsletter form submission
+  const newsletterForm = document.getElementById('newsletterForm');
+  const newsletterEmail = document.getElementById('newsletterEmail');
+  const newsletterBtn = document.getElementById('newsletterBtn');
+  const newsletterMessage = document.getElementById('newsletterMessage');
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const email = newsletterEmail.value.trim();
+      if (!email) {
+        showNewsletterMessage('Please enter your email address.', 'error');
+        return;
+      }
+
+      // Show loading state
+      const originalBtnContent = newsletterBtn.innerHTML;
+      newsletterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+      newsletterBtn.disabled = true;
+      newsletterMessage.textContent = '';
+
+      try {
+        const formData = new FormData();
+        formData.append('email', email);
+
+        const response = await fetch('/newsletter_signup', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          showNewsletterMessage(result.message, 'success');
+          newsletterEmail.value = ''; // Clear the input
+        } else {
+          showNewsletterMessage(result.message, 'error');
+        }
+      } catch (error) {
+        console.error('Newsletter signup error:', error);
+        showNewsletterMessage('Network error. Please try again later.', 'error');
+      } finally {
+        // Restore button state
+        newsletterBtn.innerHTML = originalBtnContent;
+        newsletterBtn.disabled = false;
+      }
+    });
+  }
+
+  function showNewsletterMessage(message, type) {
+    newsletterMessage.textContent = message;
+    newsletterMessage.style.color = type === 'success' ? '#00a884' : '#ff6b6b';
+    
+    // Auto-hide message after 5 seconds
+    setTimeout(() => {
+      newsletterMessage.textContent = '';
+    }, 5000);
+  }
+</script>
+  </body>
+</html>
+

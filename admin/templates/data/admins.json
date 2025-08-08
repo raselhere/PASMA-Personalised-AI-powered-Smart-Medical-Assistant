@@ -1,0 +1,7 @@
+{
+    "admin@pasma.com": {
+        "name": "Admin",
+        "password": "admin123",
+        "role": "super_admin"
+    }
+}

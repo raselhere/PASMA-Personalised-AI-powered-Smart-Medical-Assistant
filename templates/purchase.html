@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Medicines - PASMA</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='medicine-icon.css') }}">
+
+    <style>
+        :root {
+            --primary-color: #00a884;
+            --secondary-color: #e8f5f1;
+            --text-color: #333333;
+            --light-text: #666666;
+            --white: #ffffff;
+            --teal: #00a884;
+            --light-teal: #e8f5f1;
+            --dark-teal: #008f6c;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background-color: var(--white);
+        }
+
+        /* Georgia font for paragraphs */
+        p {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-top: 0;
+            margin-left: 2px;
+        }
+
+        .myimg {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-color);
+            border-radius: 25px;
+        }
+
+        .navbar-custom {
+            background-color: var(--white) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-custom .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+        }
+
+        .navbar-custom .nav-link.active {
+            color: var(--primary-color) !important;
+        }
+
+        .page-header {
+            background-color: var(--secondary-color);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .page-title {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Profile dropdown styles */
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .dropdown-item {
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .dropdown-item i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+        }
+
+        .profile-icon:hover {
+            background-color: var(--primary-color);
+        }
+
+        .profile-icon:hover i {
+            color: var(--white);
+        }
+
+        .profile-icon i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Cart icon styles */
+        .cart-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            position: relative;
+        }
+
+        .cart-icon:hover {
+            background-color: var(--primary-color);
+        }
+
+        .cart-icon:hover i {
+            color: var(--white);
+        }
+
+        .cart-icon i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Cart dropdown styles */
+        .cart-dropdown {
+            width: 320px;
+            padding: 0;
+        }
+
+        .cart-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .cart-items {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .cart-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            background-color: var(--secondary-color);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .quantity-input {
+            width: 30px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-weight: 500;
+            margin: 0 5px;
+        }
+
+        .cart-item-remove {
+            color: #ff6b6b;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 1.1rem;
+        }
+
+        .cart-footer {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .cart-checkout {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            width: 100%;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .cart-checkout:hover {
+            background-color: var(--dark-teal);
+        }
+
+        .empty-cart {
+            padding: 30px 15px;
+            text-align: center;
+            color: var(--light-text);
+        }
+
+        .empty-cart i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Product section styles */
+        .product-section {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 30px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 160px; /* Reduced height */
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-details {
+            padding: 15px; /* Reduced padding */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-category {
+            color: var(--light-text);
+            font-size: 0.8rem; /* Smaller font */
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .product-name {
+            font-size: 1.1rem; /* Smaller font */
+            font-weight: 600;
+            margin-bottom: 5px; /* Reduced margin */
+            color: var(--text-color);
+        }
+
+        .product-description {
+            color: var(--light-text);
+            font-size: 0.8rem; /* Smaller font */
+            margin-bottom: 10px; /* Reduced margin */
+            flex: 1;
+            /* Limit to 2 lines with ellipsis */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-price {
+            font-size: 1.2rem; /* Smaller font */
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 10px; /* Reduced margin */
+        }
+
+        .product-company {
+            font-size: 0.8rem;
+            color: var(--light-text);
+            margin-bottom: 10px;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-add-to-cart {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .btn-add-to-cart i {
+            margin-right: 5px;
+        }
+
+        .btn-add-to-cart:hover {
+            background-color: var(--dark-teal);
+        }
+
+        /* Filter section styles */
+        .filter-section {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-label {
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+        }
+
+        .price-input {
+            width: 80px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0 5px;
+        }
+
+        .btn-filter {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-filter:hover {
+            background-color: var(--dark-teal);
+        }
+
+        /* Search bar styles */
+        .search-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            padding-right: 50px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+            outline: none;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Pagination styles */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .page-item {
+            margin: 0 5px;
+        }
+
+        .page-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--white);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+            font-weight: 500;
+        }
+
+        .page-link:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .page-item.active .page-link {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .page-item.disabled .page-link {
+            color: #ccc;
+            pointer-events: none;
+            background-color: var(--white);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .filter-section {
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-image {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cart-dropdown {
+                width: 290px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <div class="logo">
+                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+            </div>
+            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('purchase') }}">Purchase</a>
+                    </li>
+                    <!-- Cart Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="cart-icon" id="cartDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="cart-badge" id="cartCount">0</span>
+                        </div>
+                        <div class="dropdown-menu dropdown-menu-end cart-dropdown" aria-labelledby="cartDropdown">
+                            <div class="cart-header">
+                                <h6 class="m-0">Your Cart</h6>
+                            </div>
+                            <div class="cart-items" id="cartItems">
+                                <!-- Cart items will be dynamically added here -->
+                                <div class="empty-cart" id="emptyCart">
+                                    <i class="fas fa-shopping-basket"></i>
+                                    <p>Your cart is empty</p>
+                                </div>
+                            </div>
+                            <div class="cart-footer">
+                                <div class="cart-total">
+                                    <span>Total:</span>
+                                    <span id="cartTotal">$0.00</span>
+                                </div>
+                                <button class="cart-checkout">Checkout</button>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if profile_picture %}
+                                <img src="{{ url_for('static', filename=profile_picture.replace('static/', '')) }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('patient_appointment') }}"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">Online Medicine Store</h1>
+            <p class="page-subtitle">Order quality medicines from the comfort of your home</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="product-section">
+        <div class="container">
+            <div class="row">
+                <!-- Filter Sidebar -->
+                <div class="col-lg-3">
+                    <div class="filter-section">
+                        <h3 class="filter-title">Filter Medicines</h3>
+
+                        <!-- Search Bar -->
+                        <div class="search-container mb-4">
+                            <input type="text" class="search-input" id="medicineSearch" placeholder="Search medicines..." onkeyup="searchMedicines()">
+                            <button class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div class="filter-group">
+                            <div class="filter-label">Categories</div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Pain Relief" id="categoryPain" onchange="filterMedicines()">
+                                <label class="form-check-label" for="categoryPain">
+                                    Pain Relief
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Antibiotics" id="categoryAntibiotics" onchange="filterMedicines()">
+                                <label class="form-check-label" for="categoryAntibiotics">
+                                    Antibiotics
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Cardiac Care" id="categoryCardiac" onchange="filterMedicines()">
+                                <label class="form-check-label" for="categoryCardiac">
+                                    Cardiac Care
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="Diabetes Care" id="categoryDiabetes" onchange="filterMedicines()">
+                                <label class="form-check-label" for="categoryDiabetes">
+                                    Diabetes Care
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <div class="filter-label">Price Range</div>
+                            <div class="price-range">
+                                <input type="number" class="price-input" id="minPrice" placeholder="Min" min="0">
+                                <span>to</span>
+                                <input type="number" class="price-input" id="maxPrice" placeholder="Max" min="0">
+                            </div>
+                        </div>
+
+                        <button class="btn-filter" onclick="filterMedicines()">Apply Filters</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="col-lg-9">
+                    <div class="row" id="productGrid">
+                        <!-- Products will be dynamically loaded here -->
+                        <div class="col-12 text-center">
+                            <p>Loading medicines...</p>
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="pagination-container">
+                        <ul class="pagination" id="pagination">
+                            <!-- Pagination will be dynamically generated -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Include our new JavaScript file -->
+    <script src="{{ url_for('static', filename='js/purchase.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

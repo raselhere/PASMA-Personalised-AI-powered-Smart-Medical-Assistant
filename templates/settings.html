@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - PASMA</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+      :root {
+          --primary-color: #00a884;
+          --secondary-color: #e8f5f1;
+          --text-color: #333333;
+          --light-text: #666666;
+          --white: #ffffff;
+          --teal: #00a884;
+      }
+
+      body {
+          font-family: 'Poppins', sans-serif;
+          margin: 0;
+          padding: 0;
+          color: var(--text-color);
+          background-color: var(--white);
+      }
+
+      .logo {
+          width: 50px;
+          height: 50px;
+          margin-top: 0;
+          margin-left: 2px;
+      }
+
+      .myimg {
+          width: 50px;
+          height: 50px;
+          border: 2px solid var(--primary-color);
+          border-radius: 25px;
+      }
+
+      .navbar-custom {
+          background-color: var(--white) !important;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-custom .nav-link {
+          color: var(--text-color) !important;
+          font-weight: 500;
+      }
+
+      .navbar-custom .nav-link.active {
+          color: var(--primary-color) !important;
+      }
+
+      .settings-section {
+          padding: 80px 0;
+      }
+
+      .section-title {
+          font-size: 2.5rem;
+          color: var(--teal);
+          text-align: center;
+          margin-bottom: 50px;
+          font-weight: 600;
+      }
+
+      .settings-container {
+          background-color: var(--white);
+          border-radius: 15px;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+          overflow: hidden;
+          margin: 0 auto;
+          max-width: 800px;
+      }
+
+      .settings-header {
+          background-color: var(--secondary-color);
+          padding: 30px;
+          text-align: center;
+      }
+
+      .settings-icon {
+          font-size: 50px;
+          color: var(--primary-color);
+          margin-bottom: 15px;
+      }
+
+      .settings-title {
+          font-size: 1.8rem;
+          font-weight: 600;
+          margin-bottom: 0;
+      }
+
+      .settings-body {
+          padding: 30px;
+      }
+
+      .settings-section-title {
+          font-size: 1.2rem;
+          font-weight: 600;
+          margin-bottom: 20px;
+          color: var(--primary-color);
+          display: flex;
+          align-items: center;
+      }
+
+      .settings-section-title i {
+          margin-right: 10px;
+      }
+
+      .form-group {
+          margin-bottom: 20px;
+      }
+
+      .form-label {
+          font-weight: 500;
+          margin-bottom: 8px;
+      }
+
+      .form-control {
+          border-radius: 8px;
+          padding: 12px 15px;
+          border: 1px solid #e0e0e0;
+      }
+
+      .form-control:focus {
+          border-color: var(--primary-color);
+          box-shadow: 0 0 0 3px rgba(0, 168, 132, 0.1);
+      }
+
+      .btn-save {
+          background-color: var(--primary-color);
+          color: var(--white);
+          border: none;
+          padding: 12px 25px;
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s ease;
+      }
+
+      .btn-save:hover {
+          background-color: #008f6c;
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .alert {
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 20px;
+      }
+
+      .dropdown-menu {
+          border: none;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+          border-radius: 10px;
+      }
+
+      .dropdown-item {
+          padding: 10px 20px;
+          transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+          background-color: var(--secondary-color);
+      }
+
+      .dropdown-item i {
+          margin-right: 10px;
+          color: var(--primary-color);
+      }
+
+      .profile-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: var(--secondary-color);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+      }
+
+      .profile-icon:hover {
+          background-color: var(--primary-color);
+      }
+
+      .profile-icon:hover i {
+          color: var(--white);
+      }
+
+      .profile-icon i {
+          color: var(--primary-color);
+          font-size: 1.2rem;
+      }
+  </style>
+</head>
+<body>
+
+     <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+        <div class="container">
+            <div class="logo">
+                <img class="myimg" src="{{url_for('static',filename='img.png')}}" alt="PASMA Logo">
+            </div>
+            <a class="navbar-brand" style="font-weight: bold; color: #00a884;">PASMA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('purchase') }}">Purchase</a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown">
+                        <div class="profile-icon ms-3" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            {% if user_details.profile_pic %}
+                                <img src="{{ url_for('static', filename=user_details.profile_pic.replace('static/', '')) }}" alt="{{ user_details.name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                            {% else %}
+                                <i class="fas fa-user"></i>
+                            {% endif %}
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('profile') }}"><i class="fas fa-user-circle"></i> My Profile</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('patient_appointment') }}"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('settings') }}"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Log Out</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+  <!-- Settings Section -->
+  <section class="settings-section">
+      <div class="container">
+          <h1 class="section-title">Account Settings</h1>
+
+          <div class="settings-container">
+              <div class="settings-header">
+                  <div class="settings-icon">
+                      <i class="fas fa-cog"></i>
+                  </div>
+                  <h2 class="settings-title">Manage Your Account</h2>
+              </div>
+
+              <div class="settings-body">
+                  {% if message %}
+                  <div class="alert alert-{{ message_type }}">
+                      {{ message }}
+                  </div>
+                  {% endif %}
+
+                  <!-- Email Settings -->
+                  <div class="mb-5">
+                      <h3 class="settings-section-title"><i class="fas fa-envelope"></i> Email Settings</h3>
+                      <form action="{{ url_for('update_email') }}" method="POST">
+                          <div class="form-group">
+                              <label for="current-email" class="form-label">Current Email</label>
+                              <input type="email" class="form-control" id="current-email" value="{{ session['user'] }}" disabled>
+                          </div>
+                          <div class="form-group">
+                              <label for="new-email" class="form-label">New Email</label>
+                              <input type="email" class="form-control" id="new-email" name="new_email" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="password-for-email" class="form-label">Current Password</label>
+                              <input type="password" class="form-control" id="password-for-email" name="password" required>
+                          </div>
+                          <button type="submit" class="btn-save">
+                              <i class="fas fa-save me-2"></i> Update Email
+                          </button>
+                      </form>
+                  </div>
+
+                  <!-- Password Settings -->
+                  <div>
+                      <h3 class="settings-section-title"><i class="fas fa-lock"></i> Password Settings</h3>
+                      <form action="{{ url_for('update_password') }}" method="POST">
+                          <div class="form-group">
+                              <label for="current-password" class="form-label">Current Password</label>
+                              <input type="password" class="form-control" id="current-password" name="current_password" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="new-password" class="form-label">New Password</label>
+                              <input type="password" class="form-control" id="new-password" name="new_password" required>
+                          </div>
+                          <div class="form-group">
+                              <label for="confirm-password" class="form-label">Confirm New Password</label>
+                              <input type="password" class="form-control" id="confirm-password" name="confirm_password" required>
+                          </div>
+                          <button type="submit" class="btn-save">
+                              <i class="fas fa-save me-2"></i> Update Password
+                          </button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

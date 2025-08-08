@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Doctor - PASMA Admin{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center mb-4">
+    <a href="{{ url_for('doctors') }}" class="btn btn-outline-primary me-3">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1 class="section-title mb-0">Edit Doctor</h1>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <form action="{{ url_for('edit_doctor', email=email) }}" method="POST" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ doctor.name }}" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" value="{{ email }}" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="specialization" class="form-label">Specialization</label>
+                        <select class="form-control" id="specialization" name="specialization">
+                            <option value="">Select Specialization</option>
+                            <option value="Cardiology" {% if doctor.specialization == 'Cardiology' %}selected{% endif %}>Cardiology</option>
+                            <option value="Dermatology" {% if doctor.specialization == 'Dermatology' %}selected{% endif %}>Dermatology</option>
+                            <option value="Neurology" {% if doctor.specialization == 'Neurology' %}selected{% endif %}>Neurology</option>
+                            <option value="Orthopedics" {% if doctor.specialization == 'Orthopedics' %}selected{% endif %}>Orthopedics</option>
+                            <option value="Pediatrics" {% if doctor.specialization == 'Pediatrics' %}selected{% endif %}>Pediatrics</option>
+                            <option value="Psychiatry" {% if doctor.specialization == 'Psychiatry' %}selected{% endif %}>Psychiatry</option>
+                            <option value="Gynecology" {% if doctor.specialization == 'Gynecology' %}selected{% endif %}>Gynecology</option>
+                            <option value="Ophthalmology" {% if doctor.specialization == 'Ophthalmology' %}selected{% endif %}>Ophthalmology</option>
+                            <option value="ENT" {% if doctor.specialization == 'ENT' %}selected{% endif %}>ENT</option>
+                            <option value="General Medicine" {% if doctor.specialization == 'General Medicine' %}selected{% endif %}>General Medicine</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone" name="phone" value="{{ doctor.phone or '' }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password (Leave blank to keep current)</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="profile_pic" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control" id="profile_pic" name="profile_pic" accept=".jpg,.jpeg,.png">
+                        {% if doctor.profile_pic %}
+                        <div class="mt-2">
+                            <img src="{{ url_for('static', filename=doctor.profile_pic) }}" alt="{{ doctor.name }}" class="rounded" width="100">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <a href="{{ url_for('doctors') }}" class="btn btn-secondary me-2">Cancel</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-2"></i> Update Doctor
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
