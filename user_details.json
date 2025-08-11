@@ -311,6 +311,16 @@
                 "date": "2025-08-05 11:55:24",
                 "symptoms": "itching",
                 "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-08-09 02:53:13",
+                "symptoms": "itching, vomiting",
+                "predicted_disease": "Gastroenteritis"
+            },
+            {
+                "date": "2025-08-09 02:53:24",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
             }
         ],
         "appointments": [
