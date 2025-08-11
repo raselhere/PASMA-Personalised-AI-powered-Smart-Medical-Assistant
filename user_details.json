@@ -321,6 +321,11 @@
                 "date": "2025-08-09 02:53:24",
                 "symptoms": "itching",
                 "predicted_disease": "Fungal infection"
+            },
+            {
+                "date": "2025-08-11 06:33:35",
+                "symptoms": "stomach_pain",
+                "predicted_disease": "Drug Reaction"
             }
         ],
         "appointments": [
@@ -416,17 +421,6 @@
         ],
         "profile_pic": "static/uploads/oni1gmail.com_profile_Aanika_Bushra_Oni.png",
         "medications": [
-            {
-                "id": "aa6bbca8-1b9b-4005-8efc-d14c2e9c0227",
-                "name": "Napa",
-                "dosage": "20 mg",
-                "frequency": "Three times daily",
-                "start_date": "2025-04-20",
-                "end_date": "2025-04-30",
-                "instructions": "Drink more water",
-                "reminder": true,
-                "created_at": "2025-04-20 20:18:22"
-            },
             {
                 "id": "8554eee1-fdfb-462b-828f-0451b1fd4746",
                 "name": "Napa",

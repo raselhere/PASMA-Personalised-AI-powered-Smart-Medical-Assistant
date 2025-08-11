@@ -13,22 +13,632 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        
         :root {
-            --primary-color: #00a884;
-            --secondary-color: #e8f5f1;
-            --text-color: #333333;
-            --light-text: #666666;
-            --white: #ffffff;
-            --teal: #00a884;
+        --primary-color: #00a884;
+        --primary-dark: #008f6c;
+        --primary-light: #e8f5f1;
+        --secondary-color: #00d4aa;
+        --accent-color: #ff6b35;
+        --accent-secondary: #8b5cf6;
+        --text-color: #2d3748;
+        --light-text: #718096;
+        --white: #ffffff;
+        --light-bg: #f7fafc;
+        --gradient-primary: linear-gradient(135deg, #00a884 0%, #00d4aa 100%);
+        --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --gradient-hero: linear-gradient(135deg, #00a884 0%, #00d4aa 50%, #8b5cf6 100%);
+        --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.07);
+        --shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.1);
+        --shadow-strong: 0 20px 40px rgba(0, 0, 0, 0.15);
+        --shadow-glow: 0 0 30px rgba(0, 168, 132, 0.3);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        color: var(--text-color);
+        background-color: var(--white);
+        overflow-x: hidden;
+        line-height: 1.6;
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Particle Animation Background */
+      .particles {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .particle {
+        position: absolute;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float-particles 6s ease-in-out infinite;
+      }
+
+      .particle:nth-child(1) { width: 80px; height: 80px; left: 10%; animation-delay: 0s; }
+      .particle:nth-child(2) { width: 60px; height: 60px; left: 20%; animation-delay: 2s; }
+      .particle:nth-child(3) { width: 100px; height: 100px; left: 35%; animation-delay: 4s; }
+      .particle:nth-child(4) { width: 40px; height: 40px; left: 70%; animation-delay: 1s; }
+      .particle:nth-child(5) { width: 120px; height: 120px; left: 80%; animation-delay: 3s; }
+
+      @keyframes float-particles {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        33% { transform: translateY(-30px) rotate(120deg); }
+        66% { transform: translateY(30px) rotate(240deg); }
+      }
+
+      @keyframes badge-pulse {
+        0%, 100% {
+          box-shadow: 
+            0 8px 32px rgba(0, 168, 132, 0.15),
+            0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        }
+        50% {
+          box-shadow: 
+            0 12px 40px rgba(0, 168, 132, 0.25),
+            0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+        }
+      }
+
+      @keyframes badge-shimmer {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      @keyframes badge-icon-rotate {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Scroll indicators */
+      .scroll-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 30px;
+      }
+
+      .scroll-indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(0, 168, 132, 0.3);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .scroll-indicator.active {
+        background: var(--primary-color);
+        transform: scale(1.2);
+      }
+
+      /* Scroll hint */
+      .scroll-hint {
+        text-align: center;
+        margin-top: 20px;
+        color: var(--light-text);
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .scroll-hint i {
+        color: var(--primary-color);
+        animation: bounce-horizontal 2s infinite;
+      }
+
+      @keyframes bounce-horizontal {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateX(0);
+        }
+        40% {
+          transform: translateX(-5px);
+        }
+        60% {
+          transform: translateX(5px);
+        }
+      }
+
+       /* Auth button styles */
+       .auth-btn {
+        color: var(--text-color);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-size: 0.95rem;
+      }
+
+      .login-btn {
+        border: 2px solid var(--primary-color);
+        background: transparent;
+        
+      }
+
+      .login-btn:hover {
+        background: var(--primary-color);
+        color: var(--white);
+      }
+
+      .signup-btn {
+        background: var(--gradient-primary);
+        color: var(--white);
+        margin-left: 15px;
+        border: 2px solid transparent;
+      }
+
+      .signup-btn:hover {
+        background: var(--primary-dark);
+        color: var(--white);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background: var(--gradient-primary);
+        padding: 80px 0;
+        color: var(--white);
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+      }
+
+      .cta-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .btn-cta {
+        background: var(--white);
+        color: var(--primary-color);
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: var(--shadow-medium);
+      }
+
+      .btn-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-strong);
+        color: var(--primary-color);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        color: var(--white);
+        padding: 60px 0 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><pattern id="footergrid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23footergrid)"/></svg>');
+        z-index: 0;
+      }
+
+      .footer-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-top {
+        padding-bottom: 40px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .footer-brand {
+        margin-bottom: 25px;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .footer-logo img {
+        width: 40px;
+        height: 40px;
+        margin-right: 12px;
+        border-radius: 8px;
+      }
+
+      .footer-logo-text {
+        font-size: 1.8rem;
+        font-weight: 800;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .footer-description {
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.7;
+        max-width: 300px;
+        margin-bottom: 20px;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .social-link:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 168, 132, 0.3);
+      }
+
+      .footer-section {
+        margin-bottom: 30px;
+      }
+
+      .footer-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .footer-title::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 30px;
+        height: 2px;
+        background: var(--primary-color);
+        border-radius: 1px;
+      }
+
+      .footer-links {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-links li {
+        margin-bottom: 12px;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-links a:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+      }
+
+      .footer-links a i {
+        margin-right: 8px;
+        width: 16px;
+      }
+
+      .footer-contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .footer-contact-item i {
+        width: 20px;
+        margin-right: 12px;
+        color: var(--primary-color);
+      }
+
+      .newsletter {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 25px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .newsletter-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--white);
+      }
+
+      .newsletter-description {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 10px;
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
+        font-size: 0.9rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .newsletter-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .newsletter-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .newsletter-btn {
+        padding: 12px 20px;
+        background: var(--gradient-primary);
+        border: none;
+        border-radius: 8px;
+        color: var(--white);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .newsletter-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 168, 132, 0.3);
+      }
+
+      .footer-bottom {
+        padding: 25px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 40px;
+      }
+
+      .footer-bottom-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .footer-copyright {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.9rem;
+      }
+
+      .footer-legal {
+        display: flex;
+        gap: 25px;
+      }
+
+      .footer-legal a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+      }
+
+      .footer-legal a:hover {
+        color: var(--primary-color);
+      }
+
+      /* Responsive footer */
+      @media (max-width: 768px) {
+        .footer {
+          padding: 40px 0 0;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            background-color: var(--white);
+        .newsletter-form {
+          flex-direction: column;
         }
+
+        .footer-bottom-content {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .footer-legal {
+          justify-content: center;
+        }
+
+        .footer-social {
+          justify-content: center;
+        }
+      }
+
+      /* Animations */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      .floating {
+        animation: float 3s ease-in-out infinite;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 992px) {
+        .hero-title {
+          font-size: 3rem;
+        }
+
+        .doctor-image {
+          opacity: 0.3;
+          max-height: 70%;
+        }
+
+        .section-title {
+          font-size: 2.5rem;
+        }
+
+        .stats-section {
+          padding: 40px 0;
+        }
+
+        .stat-number {
+          font-size: 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-section {
+          padding: 100px 0 60px;
+          text-align: center;
+        }
+
+        .features-section,
+        .how-it-works,
+        .faq-section {
+          padding: 60px 0;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+
+        .accordion-button {
+          font-size: 1.1rem;
+          padding: 20px 25px;
+        }
+
+        .accordion-body {
+          padding: 0 25px 20px;
+        }
+
+        .auth-btn {
+          margin: 5px;
+        }
+
+        .signup-btn {
+          margin-left: 5px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero-title {
+          font-size: 2rem;
+        }
+
+        .btn-hero-primary {
+          padding: 14px 30px;
+          font-size: 1rem;
+        }
+
+        .feature-card {
+          padding: 30px 20px;
+        }
+
+        .cta-title {
+          font-size: 2rem;
+        }
+      }
+
+      /* Loading animation */
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255,255,255,.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
 
         .logo {
             width: 50px;
@@ -409,7 +1019,7 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+<!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom fixed-top">
     <div class="container">
       <div class="d-flex align-items-center">
@@ -424,7 +1034,13 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('landing') }}">Home</a>
+            <a class="nav-link" href="{{ url_for('landing') }}">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('landing') }}">How It Works</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('landing') }}">FAQ</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
@@ -616,8 +1232,328 @@
     </div>
 </section>
 
+
+<footer class="footer">
+    <div class="footer-content">
+      <div class="container">
+        <div class="footer-top">
+          <div class="row">
+            <!-- Company Information -->
+            <div class="col-lg-3 col-md-6">
+              <div class="footer-brand">
+                <div class="footer-logo">
+                  <img src="{{ url_for('static', filename='img.png') }}" alt="PASMA Logo">
+                  <span class="footer-logo-text">PASMA</span>
+                </div>
+                <p class="footer-description">
+                  Your trusted AI-powered medical assistant providing accurate health insights, personalized recommendations, and 24/7 healthcare support.
+                </p>
+                <div class="footer-social">
+                  <a href="#" class="social-link" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                  <a href="#" class="social-link" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Services -->
+            <div class="col-lg-2 col-md-6">
+              <div class="footer-section">
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                  <li><a href="#"><i class="fas fa-stethoscope"></i>Disease Prediction</a></li>
+                  <li><a href="#"><i class="fas fa-pills"></i>Medication Guide</a></li>
+                  <li><a href="#"><i class="fas fa-apple-alt"></i>Diet Plans</a></li>
+                  <li><a href="#"><i class="fas fa-dumbbell"></i>Workout Plans</a></li>
+                  <li><a href="#"><i class="fas fa-user-md"></i>Doctor Connect</a></li>
+                </ul>
+              </div>
+            </div>
+  
+            <!-- Contact Info -->
+            <div class="col-lg-3 col-md-6">
+              <div class="footer-section">
+                <h4 class="footer-title">Contact Info</h4>
+                <div class="footer-contact-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>123 Health Street, Medical District, City 12345</span>
+                </div>
+                <div class="footer-contact-item">
+                  <i class="fas fa-phone"></i>
+                  <span>+1 (555) 123-PASMA</span>
+                </div>
+                <div class="footer-contact-item">
+                  <i class="fas fa-envelope"></i>
+                  <span>support@pasma.health</span>
+                </div>
+                <div class="footer-contact-item">
+                  <i class="fas fa-clock"></i>
+                  <span>24/7 AI Support Available</span>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Stay Updated -->
+            <div class="col-lg-4 col-md-6">
+              <div class="footer-section">
+                <div class="newsletter">
+                  <h4 class="footer-title" style="color: var(--white); margin-bottom: 20px;">Stay Updated</h4>
+                  <p class="newsletter-description">
+                    Get the latest health tips and PASMA updates delivered to your inbox.
+                  </p>
+                  <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-btn" id="newsletterBtn">
+                      <i class="fas fa-paper-plane"></i>
+                    </button>
+                  </form>
+                  <div id="newsletterMessage" style="margin-top: 10px; font-size: 0.9rem; text-align: center;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <div class="footer-copyright">
+              <p>&copy; 2024 PASMA. All rights reserved. | Personalised AI-Powered Smart Medical Assistant</p>
+            </div>
+            <div class="footer-legal">
+              <a href="#">Privacy Policy</a>
+              <a href="#">Terms of Service</a>
+              <a href="#">Cookie Policy</a>
+              <a href="#">HIPAA Compliance</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 <!-- Bootstrap JS -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      offset: 100
+    });
+  
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar-custom');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  
+    // Counter animation for stats
+    function animateCounter(element, target) {
+      let current = 0;
+      const increment = target / 100;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        if (target.toString().includes('%')) {
+          element.textContent = Math.floor(current) + '%';
+        } else if (target.toString().includes('K')) {
+          element.textContent = Math.floor(current) + 'K+';
+        } else if (target.toString().includes('/')) {
+          element.textContent = target;
+        } else {
+          element.textContent = Math.floor(current) + '+';
+        }
+      }, 20);
+    }
+  
+    // Trigger counter animation when stats section is visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const counters = entry.target.querySelectorAll('.stat-number');
+          counters.forEach(counter => {
+            const target = counter.textContent;
+            if (target.includes('10K')) {
+              animateCounter(counter, 10000);
+            } else if (target.includes('500')) {
+              animateCounter(counter, 500);
+            } else if (target.includes('98%')) {
+              animateCounter(counter, 98);
+            } else {
+              counter.textContent = target;
+            }
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    });
+  
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  
+    // Testimonials horizontal scroll functionality
+    const testimonialsScroll = document.getElementById('testimonialsScroll');
+    const scrollIndicators = document.querySelectorAll('.scroll-indicator');
+    
+    if (testimonialsScroll && scrollIndicators.length > 0) {
+      // Update indicators based on scroll position
+      testimonialsScroll.addEventListener('scroll', () => {
+        const scrollLeft = testimonialsScroll.scrollLeft;
+        const maxScroll = testimonialsScroll.scrollWidth - testimonialsScroll.clientWidth;
+        const scrollPercentage = scrollLeft / maxScroll;
+        
+        // Calculate which indicator should be active
+        const activeIndex = Math.round(scrollPercentage * (scrollIndicators.length - 1));
+        
+        scrollIndicators.forEach((indicator, index) => {
+          indicator.classList.toggle('active', index === activeIndex);
+        });
+      });
+      
+      // Click handlers for indicators
+      scrollIndicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          const cardWidth = 320 + 25; // card width + gap
+          const scrollPosition = index * cardWidth * 2; // 2 cards per scroll
+          
+          testimonialsScroll.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+          });
+        });
+      });
+      
+      // Touch/swipe support for mobile
+      let isDown = false;
+      let startX;
+      let scrollLeftStart;
+      
+      testimonialsScroll.addEventListener('mousedown', (e) => {
+        isDown = true;
+        startX = e.pageX - testimonialsScroll.offsetLeft;
+        scrollLeftStart = testimonialsScroll.scrollLeft;
+        testimonialsScroll.style.cursor = 'grabbing';
+      });
+      
+      testimonialsScroll.addEventListener('mouseleave', () => {
+        isDown = false;
+        testimonialsScroll.style.cursor = 'grab';
+      });
+      
+      testimonialsScroll.addEventListener('mouseup', () => {
+        isDown = false;
+        testimonialsScroll.style.cursor = 'grab';
+      });
+      
+      testimonialsScroll.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - testimonialsScroll.offsetLeft;
+        const walk = (x - startX) * 2;
+        testimonialsScroll.scrollLeft = scrollLeftStart - walk;
+      });
+      
+      // Add grab cursor
+      testimonialsScroll.style.cursor = 'grab';
+    }
+  
+    // Newsletter form submission
+    const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterEmail = document.getElementById('newsletterEmail');
+    const newsletterBtn = document.getElementById('newsletterBtn');
+    const newsletterMessage = document.getElementById('newsletterMessage');
+  
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const email = newsletterEmail.value.trim();
+        if (!email) {
+          showNewsletterMessage('Please enter your email address.', 'error');
+          return;
+        }
+  
+        // Show loading state
+        const originalBtnContent = newsletterBtn.innerHTML;
+        newsletterBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        newsletterBtn.disabled = true;
+        newsletterMessage.textContent = '';
+  
+        try {
+          const formData = new FormData();
+          formData.append('email', email);
+  
+          const response = await fetch('/newsletter_signup', {
+            method: 'POST',
+            body: formData
+          });
+  
+          const result = await response.json();
+  
+          if (result.success) {
+            showNewsletterMessage(result.message, 'success');
+            newsletterEmail.value = ''; // Clear the input
+          } else {
+            showNewsletterMessage(result.message, 'error');
+          }
+        } catch (error) {
+          console.error('Newsletter signup error:', error);
+          showNewsletterMessage('Network error. Please try again later.', 'error');
+        } finally {
+          // Restore button state
+          newsletterBtn.innerHTML = originalBtnContent;
+          newsletterBtn.disabled = false;
+        }
+      });
+    }
+  
+    function showNewsletterMessage(message, type) {
+      newsletterMessage.textContent = message;
+      newsletterMessage.style.color = type === 'success' ? '#00a884' : '#ff6b6b';
+      
+      // Auto-hide message after 5 seconds
+      setTimeout(() => {
+        newsletterMessage.textContent = '';
+      }, 5000);
+    }
+  </script>
 </body>
 </html>
 
