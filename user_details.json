@@ -3,7 +3,27 @@
         "name": "Aanika Bushra Oni",
         "phone": "01565435673",
         "password": "aanika",
-        "profile_pic": "uploads/20250422170123_Aanika_Bushra_Oni.png"
+        "profile_pic": "uploads/20250422170123_Aanika_Bushra_Oni.png",
+        "medical_history": [
+            {
+                "date": "2025-10-01 19:27:13",
+                "symptoms": "itching",
+                "predicted_disease": "Fungal infection"
+            }
+        ],
+        "medications": [
+            {
+                "id": "e8a8402b-057a-4c0f-b0e2-2d86abe1f9a5",
+                "name": "Cafedon",
+                "dosage": "500mg",
+                "frequency": "Twice daily",
+                "start_date": "2025-10-01",
+                "end_date": "2025-10-07",
+                "instructions": "",
+                "reminder": true,
+                "created_at": "2025-10-01 19:48:26"
+            }
+        ]
     },
     "oni@gmail.com": {
         "name": "Aanika Oni",
