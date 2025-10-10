@@ -1,0 +1,365 @@
+<!-- ===============================
+  PASMA.AI — Coming Soon Overlay
+  * Theme-aware (uses your CSS variables)
+  * Pops up on ANY click (links/buttons/etc.)
+  * Prevents navigation & scroll
+  * Includes Notify form + contact + socials
+  * ESC or Close button to dismiss (optional)
+  * Add data-skip-coming-soon to any element to bypass (admin links)
+================================== -->
+<style>
+    /* Overlay base */
+    .psm-comingsoon-backdrop {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(1200px 600px at 10% 90%, rgba(0, 168, 132, 0.15), transparent 60%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(139, 92, 246, 0.15), transparent 60%),
+        rgba(20, 24, 31, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: none; /* toggled via JS */
+    }
+    .psm-comingsoon-backdrop.active { display: block; }
+  
+    /* Center container */
+    .psm-comingsoon {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+  
+    .psm-card {
+      width: min(880px, 92vw);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      box-shadow: var(--shadow-strong, 0 20px 40px rgba(0,0,0,.25));
+      overflow: hidden;
+      color: #fff;
+      position: relative;
+      animation: psm-pop 420ms cubic-bezier(.2,.8,.2,1);
+    }
+  
+    @keyframes psm-pop {
+      0% { transform: translateY(16px) scale(.98); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+  
+    .psm-card-top {
+      padding: 28px 28px 0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  
+    .psm-logo {
+      width: 44px; height: 44px; border-radius: 12px;
+      overflow: hidden; flex: 0 0 auto;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+    }
+    .psm-logo img { width: 100%; height: 100%; object-fit: cover; }
+  
+    .psm-badge {
+      margin-left: auto;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .85rem;
+      letter-spacing: .4px;
+      background: var(--gradient-primary);
+      color: var(--white, #fff);
+      box-shadow: 0 10px 24px rgba(0,168,132,.35);
+    }
+  
+    .psm-title {
+      padding: 6px 28px 0;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.08;
+      background: var(--gradient-hero);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+  
+    .psm-sub {
+      padding: 14px 28px 0;
+      color: rgba(255,255,255,.85);
+      font-size: clamp(14px, 1.6vw, 18px);
+      line-height: 1.7;
+      max-width: 60ch;
+    }
+  
+    /* Countdown */
+    .psm-countdown {
+      display: flex; gap: 14px; padding: 24px 28px 8px;
+      flex-wrap: wrap;
+    }
+    .psm-kpi {
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 14px;
+      padding: 12px 16px;
+      min-width: 94px;
+      text-align: center;
+    }
+    .psm-kpi .num {
+      display: block; font-weight: 800; font-size: 26px;
+      background: linear-gradient(45deg, #fff, #e8f5f1);
+      -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .psm-kpi .lbl { font-size: 12px; letter-spacing: .6px; opacity: .8; text-transform: uppercase; }
+  
+    /* Notify form */
+    .psm-form {
+      display: flex; gap: 10px; padding: 14px 28px 28px; flex-wrap: wrap;
+    }
+    .psm-input {
+      flex: 1 1 320px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.12);
+      color: #fff;
+      padding: 14px 14px;
+      outline: none;
+    }
+    .psm-input::placeholder { color: rgba(255,255,255,.6); }
+    .psm-btn {
+      background: var(--gradient-primary);
+      color: var(--white, #fff);
+      border: 0; border-radius: 12px;
+      padding: 14px 18px; font-weight: 700;
+      box-shadow: var(--shadow-medium, 0 10px 25px rgba(0,0,0,.2));
+      cursor: pointer;
+    }
+    .psm-btn:hover { box-shadow: var(--shadow-glow, 0 0 30px rgba(0,168,132,.3)); transform: translateY(-1px); }
+    .psm-msg { width: 100%; padding: 6px 2px 0 2px; font-size: 13px; min-height: 20px; color: #e3fff5; }
+  
+    /* Contact + socials row */
+    .psm-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; padding: 16px 28px 28px; flex-wrap: wrap;
+    }
+    .psm-contact {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap; color: #fff;
+    }
+    .psm-contact a { color: #fff; text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.35); }
+    .psm-social { display: flex; gap: 10px; }
+    .psm-ico {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border-radius: 12px; border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.1);
+    }
+    .psm-ico i { color: #fff; }
+  
+    /* Bottom strip */
+    .psm-strip {
+      display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;
+      padding: 16px 24px; background: rgba(0,0,0,.24);
+      border-top: 1px solid rgba(255,255,255,.15);
+      color: rgba(255,255,255,.8);
+      font-size: 13px;
+    }
+    .psm-strip .brand { font-weight: 700; background: var(--gradient-primary);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .psm-close {
+      border: 1px solid rgba(255,255,255,.25);
+      background: rgba(255,255,255,.08);
+      color: #fff; border-radius: 10px; padding: 8px 12px; cursor: pointer;
+    }
+    .psm-close:hover { background: rgba(255,255,255,.14); }
+  
+    /* Prevent page scroll when overlay open */
+    body.psm-lock { overflow: hidden; }
+    @media (max-width: 600px) {
+      .psm-form { gap: 8px; }
+      .psm-btn { width: 100%; }
+      .psm-strip { grid-template-columns: 1fr; text-align: center; }
+    }
+  </style>
+  
+  <div class="psm-comingsoon-backdrop" id="psmComingSoon" aria-hidden="true">
+    <div class="psm-comingsoon" role="dialog" aria-modal="true" aria-labelledby="psmTitle" aria-describedby="psmDesc">
+      <div class="psm-card">
+        <div class="psm-card-top">
+          <div class="psm-logo">
+            <!-- Uses your existing favicon/logo -->
+            <img src="{{ url_for('static', filename='img.png') }}" alt="PASMA logo">
+          </div>
+          <span class="psm-badge">PASMA.AI</span>
+        </div>
+  
+        <h2 class="psm-title" id="psmTitle">We’re Building Something Better for Your Health</h2>
+        <p class="psm-sub" id="psmDesc">
+          Personalized, AI-powered care is almost here. We’re polishing the experience so your journey from symptoms to
+          smart guidance feels effortless.
+        </p>
+  
+        <div class="psm-countdown" id="psmCountdown" aria-live="polite">
+          <div class="psm-kpi"><span class="num" data-psm="days">—</span><span class="lbl">Days</span></div>
+          <div class="psm-kpi"><span class="num" data-psm="hours">—</span><span class="lbl">Hours</span></div>
+          <div class="psm-kpi"><span class="num" data-psm="mins">—</span><span class="lbl">Minutes</span></div>
+          <div class="psm-kpi"><span class="num" data-psm="secs">—</span><span class="lbl">Seconds</span></div>
+        </div>
+  
+        <form class="psm-form" id="psmNotifyForm" novalidate>
+          <input class="psm-input" type="email" id="psmEmail" placeholder="Get notified — enter your email" required>
+          <button class="psm-btn" type="submit">
+            <i class="fas fa-bell"></i>&nbsp; Notify Me
+          </button>
+          <div class="psm-msg" id="psmMsg"></div>
+        </form>
+  
+        <div class="psm-meta">
+          <div class="psm-contact">
+            <i class="fas fa-envelope-open"></i>
+            Questions? Email <a href="mailto:pasma.help@gmail.com">pasma.help@gmail.com</a>
+          </div>
+          <div class="psm-social" aria-label="social links">
+            <a class="psm-ico" href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a class="psm-ico" href="#" aria-label="Twitter / X"><i class="fab fa-twitter"></i></a>
+            <a class="psm-ico" href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+  
+        <div class="psm-strip">
+          <div>© <span class="brand">PASMA</span> — Personalised AI-Powered Smart Medical Assistant</div>
+          <button class="psm-close" id="psmClose" type="button" aria-label="Close Coming Soon">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    (function () {
+      // ====== Config ======
+      // Set your "target" launch date for the countdown (optional).
+      // If you don't want a countdown, set LAUNCH_AT = null
+      const LAUNCH_AT = new Date(new Date().getFullYear(), 11, 31, 23, 59, 59); // Dec 31, this year 23:59:59
+      const SHOW_ON_ANY_CLICK = true;         // open on ANY page click
+      const LOCK_SCROLL = true;               // lock background scroll when open
+      const BYPASS_ATTR = 'data-skip-coming-soon'; // add to an element to bypass (e.g., admin link)
+  
+      const overlay = document.getElementById('psmComingSoon');
+      const btnClose = document.getElementById('psmClose');
+      const form = document.getElementById('psmNotifyForm');
+      const emailInput = document.getElementById('psmEmail');
+      const msg = document.getElementById('psmMsg');
+  
+      function openOverlay() {
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        if (LOCK_SCROLL) document.body.classList.add('psm-lock');
+        // focus trap (basic): focus email field
+        setTimeout(() => emailInput && emailInput.focus(), 50);
+      }
+  
+      function closeOverlay() {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        if (LOCK_SCROLL) document.body.classList.remove('psm-lock');
+      }
+  
+      // Global click catcher
+      if (SHOW_ON_ANY_CLICK) {
+        document.addEventListener('click', function (e) {
+          // If user purposely bypassed via data-skip-coming-soon
+          if (e.target.closest('[' + BYPASS_ATTR + ']')) return;
+  
+          // Allow clicking INSIDE overlay without re-triggering
+          if (overlay.contains(e.target)) return;
+  
+          // Prevent actual navigation & open overlay
+          e.preventDefault();
+          e.stopPropagation();
+          openOverlay();
+        }, { capture: true });
+      }
+  
+      // Close actions
+      btnClose?.addEventListener('click', closeOverlay);
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) closeOverlay();
+      });
+  
+      // Prevent clicks inside the modal from bubbling & closing
+      overlay.addEventListener('click', (e) => {
+        const card = e.target.closest('.psm-card');
+        if (!card) closeOverlay();
+      });
+  
+      // Notify form (POST to your backend or fallback to mailto)
+      form?.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const email = (emailInput?.value || '').trim();
+        if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+          msg.textContent = 'Please enter a valid email address.';
+          msg.style.color = '#ffe8e8';
+          return;
+        }
+  
+        // Try your backend endpoint first
+        try {
+          const res = await fetch('/notify_launch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          if (res.ok) {
+            msg.textContent = 'Thanks! We will notify you when we launch.';
+            msg.style.color = '#e3fff5';
+            emailInput.value = '';
+          } else {
+            // Fallback: open mailto
+            window.location.href = `mailto:pasma.help@gmail.com?subject=Notify me about PASMA.AI&body=${encodeURIComponent(email)}`;
+            msg.textContent = 'If your email app didn’t open, please email us directly.';
+            msg.style.color = '#e3fff5';
+          }
+        } catch (err) {
+          // Network fallback to mailto
+          window.location.href = `mailto:pasma.help@gmail.com?subject=Notify me about PASMA.AI&body=${encodeURIComponent(email)}`;
+          msg.textContent = 'If your email app didn’t open, please email us directly.';
+          msg.style.color = '#e3fff5';
+        }
+      });
+  
+      // Countdown (optional)
+      function tickCountdown() {
+        if (!LAUNCH_AT) return;
+        const now = new Date();
+        let diff = Math.max(0, LAUNCH_AT - now);
+  
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= d * (1000 * 60 * 60 * 24);
+        const h = Math.floor(diff / (1000 * 60 * 60));
+        diff -= h * (1000 * 60 * 60);
+        const m = Math.floor(diff / (1000 * 60));
+        diff -= m * (1000 * 60);
+        const s = Math.floor(diff / 1000);
+  
+        const set = (attr, val) => {
+          const el = document.querySelector(`[data-psm="${attr}"]`);
+          if (el) el.textContent = String(val).padStart(2, '0');
+        };
+        set('days', d);
+        set('hours', h);
+        set('mins', m);
+        set('secs', s);
+      }
+      if (LAUNCH_AT) {
+        tickCountdown();
+        setInterval(tickCountdown, 1000);
+      } else {
+        // If no countdown desired, hide the row
+        const row = document.getElementById('psmCountdown');
+        if (row) row.style.display = 'none';
+      }
+    })();
+  </script>
+  
