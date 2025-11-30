@@ -1,7 +1,7 @@
 [
     {
         "id": "ee818f4a-2f17-4c59-9034-6a12f607780c",
-        "email": "d@gmail.com",
+        "email": "rasel.doc@gmail.com",
         "name": "Rasel Ahmed",
         "gender": "male",
         "phone": "123",
@@ -118,121 +118,5 @@
                 ]
             }
         ]
-    },
-    {
-        "id": "182ffce7-29ef-433f-8481-18e19283b73a",
-        "email": "raseldoc@gmail.com",
-        "name": "Rasel Ahmed",
-        "gender": "male",
-        "phone": "009",
-        "age": "24",
-        "dob": "2000-10-23",
-        "license": "007",
-        "nid": "0065",
-        "specialization": "Cardiology",
-        "experience": "5",
-        "fee": "200",
-        "hospital": "Lad Aid Hospital",
-        "bio": "",
-        "languages": "",
-        "address": "",
-        "profile_pic": "",
-        "license_doc": "",
-        "id_doc": "",
-        "createdAt": "2025-04-08 02:29:29",
-        "updatedAt": "2025-04-08 02:30:05",
-        "timeSlots": [
-            {
-                "day": "Friday",
-                "slots": [
-                    "09:00 AM - 12:00 PM",
-                    "02:00 PM - 05:00 PM"
-                ]
-            }
-        ]
-    },
-    {
-        "id": "79998021-2651-4e4c-ab97-a44b6ccfb89d",
-        "email": "nahian0@gmail.com",
-        "name": "Tashdid Al",
-        "gender": "male",
-        "phone": "0088",
-        "age": "24",
-        "dob": "2025-04-10",
-        "license": "5656",
-        "nid": "9944",
-        "specialization": "Neurology",
-        "experience": "5",
-        "fee": "100",
-        "hospital": "Lad Aid Hospital",
-        "bio": "",
-        "languages": "",
-        "address": "",
-        "profile_pic": "",
-        "license_doc": "",
-        "id_doc": "",
-        "createdAt": "2025-04-08 03:27:23",
-        "updatedAt": "2025-04-08 03:27:53",
-        "timeSlots": [
-            {
-                "day": "Friday",
-                "slots": [
-                    "09:00 AM - 12:00 PM",
-                    "02:00 PM - 05:00 PM"
-                ]
-            }
-        ]
-    },
-    {
-        "id": "7542e806-5914-4741-a5bf-1b1bf8bf93a1",
-        "email": "reshad@gmail.com",
-        "name": "Rakibul Reshad",
-        "gender": "male",
-        "phone": "555",
-        "age": "24",
-        "dob": "2000-01-01",
-        "license": "555",
-        "nid": "555",
-        "specialization": "",
-        "experience": "",
-        "fee": "",
-        "hospital": "",
-        "bio": "",
-        "languages": "",
-        "address": "",
-        "profile_pic": "",
-        "license_doc": "",
-        "id_doc": "",
-        "createdAt": "2025-04-08 04:02:48",
-        "updatedAt": "2025-04-08 10:55:02",
-        "timeSlots": []
-    },
-    {
-        "id": "dde9327b-6bd5-4a3f-a67f-1e8486bedf60",
-        "name": "Aanika Bushra Oni",
-        "gender": "female",
-        "email": "onidoc@gmail.com",
-        "phone": "009554",
-        "age": "24",
-        "dob": "2000-12-25",
-        "license": "4353646",
-        "nid": "134522",
-        "specialization": "",
-        "experience": "",
-        "fee": "",
-        "hospital": "",
-        "bio": "",
-        "languages": "",
-        "address": "",
-        "timeSlots": [],
-        "createdAt": "2025-04-08 10:56:49"
-    },
-    {
-        "email": "ru@gmail.com",
-        "name": "Rubel Hasan",
-        "specialization": "Neurology",
-        "phone": "65",
-        "password": "ru",
-        "created_at": "2025-04-21 05:59:49"
     }
 ]
